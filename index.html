@@ -232,6 +232,38 @@
         }
         .cart-sidebar.open { left: 0; }
 
+        /* checkout overlay */
+        .checkout-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 1100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .checkout-overlay.open { opacity: 1; pointer-events: all; }
+        .checkout-panel {
+            background: #fff;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            border-radius: 28px;
+            padding: 30px 28px;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .checkout-overlay.open .checkout-panel { transform: scale(1); }
+
         .form-input {
             width: 100%;
             padding: 14px 18px;
@@ -252,6 +284,7 @@
             .hero-desc { font-size: 0.95rem !important; }
             .section-title { font-size: 1.6rem !important; }
             .btn-primary, .btn-secondary, .btn-success { padding: 12px 24px; font-size: 0.95rem; }
+            .checkout-panel { padding: 20px 16px; }
         }
         @media (min-width: 641px) and (max-width: 1024px) {
             .hero-title { font-size: 3rem !important; }
@@ -460,6 +493,16 @@
             .contact-btn { padding: 14px 18px; font-size: 0.95rem; }
             .contact-btn i { font-size: 1.3rem; }
         }
+
+        /* تنسيق عناصر نموذج الدفع */
+        .checkout-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+        .checkout-item:last-child { border-bottom: none; }
     </style>
 </head>
 <body>
@@ -509,8 +552,71 @@
                 <span class="text-gray-700" data-i18n="cart.total">المجموع</span>
                 <span id="cartTotal" class="text-[#B45309]">0.00 جنيه</span>
             </div>
-            <button onclick="proceedToCheckout()" class="w-full btn-success justify-center"><i class="fab fa-whatsapp"></i><span data-i18n="cart.checkout">متابعة الطلب</span></button>
+            <button onclick="openCheckout()" class="w-full btn-success justify-center"><i class="fab fa-whatsapp"></i><span data-i18n="cart.checkout">متابعة الطلب</span></button>
             <button onclick="clearCart()" class="w-full mt-2 text-sm text-gray-500 hover:text-red-500 transition py-2"><i class="fas fa-trash-alt ml-1"></i><span data-i18n="cart.clear">إفراغ السلة</span></button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT OVERLAY -->
+    <div id="checkoutOverlay" class="checkout-overlay" onclick="if(event.target===this) closeCheckout()">
+        <div class="checkout-panel">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-200">
+                <h2 class="text-2xl font-bold text-gray-800"><i class="fas fa-clipboard-list text-[#B45309] ml-2"></i><span data-i18n="checkout.title">إكمال الطلب</span></h2>
+                <button onclick="closeCheckout()" class="text-2xl text-gray-500 hover:text-[#B45309] transition"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- ========================================================= -->
+            <!-- ====== تنبيه سعر التوصيل في أعلى الصفحة (خط واضح) ====== -->
+            <!-- ========================================================= -->
+            <div class="mb-5 p-4 bg-amber-50 border-r-4 border-amber-500 rounded-xl text-amber-800 flex items-start gap-3 shadow-sm">
+                <i class="fas fa-info-circle text-amber-600 text-xl mt-0.5"></i>
+                <div>
+                    <p class="font-bold text-base md:text-lg" data-i18n="checkout.deliveryNote">سعر التوصيل يتم بالاتفاق بين الطرفين.</p>
+                    <p class="text-xs text-amber-700/70 mt-0.5" data-i18n="checkout.deliverySub">يرجى الاتفاق على سعر التوصيل مع المندوب قبل الاستلام.</p>
+                </div>
+            </div>
+            <!-- ========================================================= -->
+
+            <!-- نموذج بيانات العميل -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-700 mb-3"><i class="fas fa-user text-[#B45309] ml-2"></i><span data-i18n="checkout.customerInfo">بيانات العميل</span></h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.name">الاسم</label>
+                        <input type="text" id="checkoutName" class="form-input" placeholder="أدخل اسمك" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.address">العنوان</label>
+                        <input type="text" id="checkoutAddress" class="form-input" placeholder="العنوان بالتفصيل" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.phone">رقم الهاتف</label>
+                        <input type="tel" id="checkoutPhone" class="form-input" placeholder="مثال: 01012345678" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.notes">ملاحظات إضافية</label>
+                        <textarea id="checkoutNotes" class="form-input" rows="2" placeholder="أي ملاحظات حول الطلب..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ملخص الطلب -->
+            <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-700 mb-3"><i class="fas fa-shopping-bag text-[#B45309] ml-2"></i><span data-i18n="checkout.orderSummary">ملخص الطلب</span></h3>
+                <div id="checkoutSummary" class="bg-gray-50 rounded-xl p-4 max-h-48 overflow-y-auto">
+                    <!-- سيتم ملؤها بواسطة JavaScript -->
+                </div>
+                <div class="flex justify-between text-lg font-bold mt-4 pt-3 border-t border-gray-200">
+                    <span class="text-gray-700" data-i18n="cart.total">المجموع</span>
+                    <span id="checkoutTotal" class="text-[#B45309]">0.00 جنيه</span>
+                </div>
+            </div>
+
+            <!-- زر الإرسال -->
+            <button onclick="sendOrderViaWhatsApp()" class="w-full btn-success justify-center text-lg mt-2">
+                <i class="fab fa-whatsapp"></i><span data-i18n="checkout.send">إرسال الطلب عبر واتساب</span>
+            </button>
+            <p class="text-xs text-gray-400 text-center mt-3" data-i18n="checkout.note">سيتم إرسال الطلب مع بياناتك إلى واتساب للمتابعة</p>
         </div>
     </div>
 
@@ -859,6 +965,17 @@
                 'product.category.sudanese': 'سوداني',
                 'product.category.bakery': 'مخبوزات',
                 'brand': 'مارفيلا',
+                'checkout.title': 'إكمال الطلب',
+                'checkout.customerInfo': 'بيانات العميل',
+                'checkout.name': 'الاسم',
+                'checkout.address': 'العنوان',
+                'checkout.phone': 'رقم الهاتف',
+                'checkout.notes': 'ملاحظات إضافية',
+                'checkout.orderSummary': 'ملخص الطلب',
+                'checkout.send': 'إرسال الطلب عبر واتساب',
+                'checkout.note': 'سيتم إرسال الطلب مع بياناتك إلى واتساب للمتابعة',
+                'checkout.deliveryNote': 'سعر التوصيل يتم بالاتفاق بين الطرفين.',
+                'checkout.deliverySub': 'يرجى الاتفاق على سعر التوصيل مع المندوب قبل الاستلام.',
             },
             en: {
                 'nav.home': 'Home',
@@ -928,6 +1045,17 @@
                 'product.category.sudanese': 'Sudanese',
                 'product.category.bakery': 'Bakery',
                 'brand': 'MARVILLA',
+                'checkout.title': 'Checkout',
+                'checkout.customerInfo': 'Customer Details',
+                'checkout.name': 'Name',
+                'checkout.address': 'Address',
+                'checkout.phone': 'Phone Number',
+                'checkout.notes': 'Additional Notes',
+                'checkout.orderSummary': 'Order Summary',
+                'checkout.send': 'Send Order via WhatsApp',
+                'checkout.note': 'Your order will be sent to WhatsApp for processing',
+                'checkout.deliveryNote': 'Delivery fee is agreed upon between both parties.',
+                'checkout.deliverySub': 'Please agree on the delivery fee with the representative before receiving.',
             }
         };
 
@@ -1010,7 +1138,27 @@
         let cart = [];
         let currentFilter = 'all';
 
+        // =============================================================
+        // حفظ واسترجاع الحالة (الصور، السلة، اللغة)
+        // =============================================================
+        function saveCart() {
+            localStorage.setItem('marvella_cart', JSON.stringify(cart));
+        }
+
+        function loadCart() {
+            try {
+                const saved = localStorage.getItem('marvella_cart');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed)) {
+                        cart = parsed;
+                    }
+                }
+            } catch (e) { cart = []; }
+        }
+
         function loadState() {
+            // تحميل الصور
             try {
                 const saved = localStorage.getItem('marvella_images');
                 if (saved) {
@@ -1031,6 +1179,13 @@
             } catch (e) {
                 PRODUCTS = BASE_PRODUCTS.map(p => ({ ...p }));
             }
+
+            // تحميل السلة
+            loadCart();
+
+            // تحميل اللغة
+            const lang = localStorage.getItem('marvella_lang');
+            if (lang === 'en' || lang === 'ar') currentLanguage = lang;
         }
 
         function saveState() {
@@ -1041,6 +1196,7 @@
             };
             PRODUCTS.forEach(p => { data.products[p.id] = p.image; });
             localStorage.setItem('marvella_images', JSON.stringify(data));
+            saveCart();
         }
 
         // =============================================================
@@ -1148,6 +1304,7 @@
             renderProducts(currentFilter);
             const name = currentLanguage === 'ar' ? product.nameAr : product.nameEn;
             showToast(t('toast.added', { product: name }));
+            saveCart();
         }
 
         function updateQty(productId, delta) {
@@ -1164,6 +1321,7 @@
             if (cart.length === 0) {
                 showToast(t('toast.cleared'));
             }
+            saveCart();
         }
 
         function removeFromCart(productId) {
@@ -1171,6 +1329,7 @@
             updateCartUI();
             renderProducts(currentFilter);
             showToast(t('toast.removed'));
+            saveCart();
         }
 
         function clearCart() {
@@ -1180,6 +1339,7 @@
             renderProducts(currentFilter);
             showToast(t('toast.cleared'));
             closeCart();
+            saveCart();
         }
 
         function getCartTotal() {
@@ -1255,17 +1415,8 @@
             document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function proceedToCheckout() {
-            if (cart.length === 0) {
-                showToast(t('toast.emptyCart'));
-                return;
-            }
-            closeCart();
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        }
-
         // =============================================================
-        // دوال القوائم الجانبية
+        // دوال القوائم الجانبية و Checkout
         // =============================================================
         function openMobileMenu() {
             document.getElementById('mobileMenu').classList.add('open');
@@ -1290,6 +1441,86 @@
             document.getElementById('cartSidebar').classList.remove('open');
             document.getElementById('cartOverlay').classList.remove('open');
             document.body.style.overflow = '';
+        }
+
+        // Checkout
+        function openCheckout() {
+            if (cart.length === 0) {
+                showToast(t('toast.emptyCart'));
+                return;
+            }
+            closeCart();
+            document.getElementById('checkoutOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            populateCheckoutSummary();
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function populateCheckoutSummary() {
+            const container = document.getElementById('checkoutSummary');
+            container.innerHTML = '';
+            cart.forEach(item => {
+                const name = currentLanguage === 'ar' ? item.nameAr : item.nameEn;
+                const div = document.createElement('div');
+                div.className = 'checkout-item';
+                div.innerHTML = `
+                        <span>${name} × ${item.qty}</span>
+                        <span class="font-bold text-[#B45309]">${formatPrice(item.price * item.qty)}</span>
+                    `;
+                container.appendChild(div);
+            });
+            document.getElementById('checkoutTotal').textContent = formatPrice(getCartTotal());
+        }
+
+        // =============================================================
+        // إرسال الطلب عبر واتساب
+        // =============================================================
+        function sendOrderViaWhatsApp() {
+            const name = document.getElementById('checkoutName').value.trim();
+            const address = document.getElementById('checkoutAddress').value.trim();
+            const phone = document.getElementById('checkoutPhone').value.trim();
+            const notes = document.getElementById('checkoutNotes').value.trim();
+
+            if (!name || !address || !phone) {
+                showToast(t('toast.fillFields'));
+                return;
+            }
+
+            // بناء الرسالة
+            let message = `*${t('brand')} - طلب جديد*%0A`;
+            message += `%0A*${t('checkout.name')}:* ${name}`;
+            message += `%0A*${t('checkout.address')}:* ${address}`;
+            message += `%0A*${t('checkout.phone')}:* ${phone}`;
+            if (notes) message += `%0A*${t('checkout.notes')}:* ${notes}`;
+            message += `%0A%0A*${t('checkout.orderSummary')}:*`;
+
+            let total = 0;
+            cart.forEach((item, idx) => {
+                const nameItem = currentLanguage === 'ar' ? item.nameAr : item.nameEn;
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                message += `%0A${idx+1}- ${nameItem} × ${item.qty} = ${formatPrice(subtotal)}`;
+            });
+
+            message += `%0A%0A*${t('cart.total')}:* ${formatPrice(total)}`;
+            // ====== إضافة تنبيه التوصيل إلى رسالة واتساب أيضاً ======
+            message += `%0A%0A${t('checkout.deliveryNote')}`;
+
+            // فتح واتساب
+            const url = getWhatsappLink() + '?text=' + message;
+            window.open(url, '_blank');
+
+            // إفراغ السلة وإغلاق الـ checkout
+            cart = [];
+            saveCart();
+            updateCartUI();
+            renderProducts(currentFilter);
+            closeCheckout();
+            showToast(t('toast.orderSent'));
         }
 
         // =============================================================
@@ -1346,14 +1577,15 @@
             if (e.key === 'Escape') {
                 closeCart();
                 closeMobileMenu();
+                closeCheckout();
             }
         });
 
         console.log('🚀 Marvella - المنتجات السودانية الأصيلة (نسخة بيضاء)');
         console.log('📦 عدد المنتجات:', PRODUCTS.length);
         console.log('📱 WhatsApp:', CONFIG.whatsappNumber);
-        console.log('🖼️ يمكنك تعديل الصور من خلال المتغيرات في أعلى الكود.');
-        console.log('📦 ملاحظة: سعر التوصيل يتم بالاتفاق بين الطرفين');
+        console.log('💾 تم حفظ السلة والصور واللغة في localStorage');
+        console.log('✅ تم إضافة تنبيه "سعر التوصيل" في أعلى صفحة الدفع بخط واضح');
     </script>
 
 </body>
