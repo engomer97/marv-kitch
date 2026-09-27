@@ -17,7 +17,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        /* ===== الأنماط الأساسية - نسخة متجاوبة بالكامل ===== */
         * {
             margin: 0;
             padding: 0;
@@ -49,7 +48,6 @@
 
         img { max-width: 100%; height: auto; display: block; }
 
-        /* ===== Container متجاوب ===== */
         .container {
             width: 100%;
             margin-left: auto;
@@ -91,7 +89,6 @@
                     rgba(22, 101, 52, 0.55) 100%);
         }
 
-        /* ===== Product Card ===== */
         .product-card {
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             background: var(--card-bg);
@@ -111,7 +108,6 @@
         .product-card img { transition: transform 0.6s ease; }
         .product-card:hover img { transform: scale(1.04); }
 
-        /* ===== Buttons ===== */
         .btn-primary,
         .btn-secondary,
         .btn-success {
@@ -161,7 +157,6 @@
             }
         }
 
-        /* ===== Cart Badge ===== */
         .cart-badge {
             background: var(--accent);
             color: #fff;
@@ -190,7 +185,6 @@
             white-space: nowrap;
         }
 
-        /* ===== Qty Button ===== */
         .qty-btn {
             width: 32px;
             height: 32px;
@@ -217,7 +211,6 @@
         .cart-item { border-bottom: 1px solid #e5e7eb; padding: 14px 0; transition: all 0.3s ease; }
         .cart-item:last-child { border-bottom: none; }
 
-        /* ===== Nav Link ===== */
         .nav-link {
             color: var(--text);
             font-weight: 600;
@@ -231,7 +224,6 @@
         .nav-link:hover::after { width: 100%; }
         .nav-link:hover { color: var(--primary); }
 
-        /* ===== Mobile Menu ===== */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -261,7 +253,6 @@
         }
         .menu-overlay.open { opacity: 1; pointer-events: all; }
 
-        /* ===== Cart Sidebar ===== */
         .cart-sidebar {
             position: fixed;
             top: 0;
@@ -286,7 +277,6 @@
             .cart-sidebar { padding: 24px 20px; }
         }
 
-        /* ===== Checkout Overlay ===== */
         .checkout-overlay {
             position: fixed;
             inset: 0;
@@ -333,7 +323,6 @@
             .checkout-overlay.open .checkout-panel { transform: scale(1); }
         }
 
-        /* ===== Form Input ===== */
         .form-input {
             width: 100%;
             padding: 12px 14px;
@@ -351,7 +340,6 @@
         .form-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(180,83,9,0.1); }
         .form-input::placeholder { color: #9ca3af; }
 
-        /* ===== Product Image ===== */
         .product-img-container {
             position: relative;
             padding-top: 75%;
@@ -367,7 +355,6 @@
             object-fit: cover;
         }
 
-        /* ===== Animations ===== */
         .product-grid-item {
             opacity: 0;
             transform: translateY(30px);
@@ -397,7 +384,6 @@
             animation: fadeUp 0.7s ease forwards;
         }
 
-        /* ===== Toast ===== */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -431,7 +417,6 @@
             }
         }
 
-        /* ===== WhatsApp Float ===== */
         .whatsapp-float {
             position: fixed;
             bottom: 20px;
@@ -462,7 +447,6 @@
             }
         }
 
-        /* ===== Select ===== */
         select.form-input {
             appearance: none;
             -webkit-appearance: none;
@@ -472,7 +456,6 @@
             padding-left: 44px;
         }
 
-        /* ===== Language Toggle ===== */
         .lang-toggle {
             background: transparent;
             border: 2px solid var(--primary);
@@ -490,10 +473,8 @@
         }
         .lang-toggle:hover { background: var(--primary); color: #fff; }
 
-        /* إخفاء واجهة تعديل الصور */
         .img-mgr-toggle, .img-mgr-panel, .img-mgr-row, .product-img-mgr-item { display: none !important; }
 
-        /* ===== تخصيص الألوان ===== */
         .bg-\[\#FFFDF8\] { background: #fcf9f5; }
         .bg-\[\#FEF3E8\] { background: #fef3e8; }
         .text-\[\#B45309\] { color: #B45309; }
@@ -551,7 +532,6 @@
         .hover\:bg-gray-700:hover { background: #d5cfc6; }
         .hover\:bg-gray-600:hover { background: #c5bfb6; }
 
-        /* ===== Contact Buttons ===== */
         .contact-btn {
             display: flex;
             align-items: center;
@@ -596,7 +576,6 @@
         .btn-location { background: #B45309; border-color: #B45309; }
         .btn-location:hover { background: #9e4608; border-color: #9e4608; }
 
-        /* ===== Checkout Item ===== */
         .checkout-item {
             display: flex;
             align-items: center;
@@ -611,7 +590,6 @@
         }
         .checkout-item:last-child { border-bottom: none; }
 
-        /* ===== Typography Responsive with clamp ===== */
         .hero-title {
             font-size: clamp(1.75rem, 6vw, 4rem);
             line-height: 1.15;
@@ -633,7 +611,6 @@
             line-height: 1.2;
         }
 
-        /* ===== Line Clamp ===== */
         .line-clamp-2 {
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -642,7 +619,6 @@
             line-clamp: 2;
         }
 
-        /* ===== Navbar height ===== */
         .navbar-h { height: 60px; }
         @media (min-width: 768px) { .navbar-h { height: 72px; } }
         @media (min-width: 1024px) { .navbar-h { height: 80px; } }
@@ -651,7 +627,6 @@
         @media (min-width: 768px) { .hero-pt { padding-top: 72px; } }
         @media (min-width: 1024px) { .hero-pt { padding-top: 80px; } }
 
-        /* ===== Grid responsive for products ===== */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -670,7 +645,6 @@
             .products-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
         }
 
-        /* ===== Responsive brand name ===== */
         .brand-text {
             font-size: 1.05rem;
         }
@@ -678,28 +652,21 @@
         @media (min-width: 768px) { .brand-text { font-size: 1.5rem; } }
         @media (min-width: 1024px) { .brand-text { font-size: 1.75rem; } }
 
-        /* ===== Section padding ===== */
         .section-py { padding-top: 48px; padding-bottom: 48px; }
         @media (min-width: 640px) { .section-py { padding-top: 64px; padding-bottom: 64px; } }
         @media (min-width: 1024px) { .section-py { padding-top: 96px; padding-bottom: 96px; } }
 
-        /* ===== Fix for iOS bottom safe area ===== */
         @supports (padding: env(safe-area-inset-bottom)) {
             .whatsapp-float { bottom: calc(20px + env(safe-area-inset-bottom)); }
             .toast { bottom: calc(20px + env(safe-area-inset-bottom)); }
         }
 
-        /* ===== Utility to prevent overflow ===== */
-        .no-scroll-x { overflow-x: hidden; }
-
-        /* ===== Hide horizontal scroll on category filter row ===== */
         .category-scroll {
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
         .category-scroll::-webkit-scrollbar { display: none; }
 
-        /* ===== Prevent text overflow on very small ===== */
         @media (max-width: 360px) {
             .brand-text { font-size: 0.95rem !important; }
             .hero-title { font-size: 1.5rem !important; }
@@ -774,7 +741,6 @@
                 <button onclick="closeCheckout()" class="text-xl md:text-2xl text-gray-500 hover:text-[#B45309] transition p-2 -m-2" aria-label="إغلاق"><i class="fas fa-times"></i></button>
             </div>
 
-            <!-- تنبيه سعر التوصيل -->
             <div class="mb-5 p-3 md:p-4 bg-amber-50 border-r-4 border-amber-500 rounded-xl text-amber-800 flex items-start gap-3 shadow-sm">
                 <i class="fas fa-info-circle text-amber-600 text-lg md:text-xl mt-0.5 flex-shrink-0"></i>
                 <div>
@@ -783,7 +749,6 @@
                 </div>
             </div>
 
-            <!-- نموذج بيانات العميل -->
             <div class="mb-5">
                 <h3 class="text-base md:text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">
                     <i class="fas fa-user text-[#B45309]"></i>
@@ -809,14 +774,12 @@
                 </div>
             </div>
 
-            <!-- ملخص الطلب -->
             <div class="mb-4">
                 <h3 class="text-base md:text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">
                     <i class="fas fa-shopping-bag text-[#B45309]"></i>
                     <span data-i18n="checkout.orderSummary">ملخص الطلب</span>
                 </h3>
                 <div id="checkoutSummary" class="bg-gray-50 rounded-xl p-3 md:p-4 max-h-40 md:max-h-48 overflow-y-auto">
-                    <!-- سيتم ملؤها بواسطة JavaScript -->
                 </div>
                 <div class="flex justify-between text-base md:text-lg font-bold mt-3 md:mt-4 pt-3 border-t border-gray-200">
                     <span class="text-gray-700" data-i18n="cart.total">المجموع</span>
@@ -824,7 +787,6 @@
                 </div>
             </div>
 
-            <!-- زر الإرسال -->
             <button onclick="sendOrderViaWhatsApp()" class="w-full btn-success text-base md:text-lg mt-2">
                 <i class="fab fa-whatsapp"></i><span data-i18n="checkout.send">إرسال الطلب عبر واتساب</span>
             </button>
@@ -837,7 +799,6 @@
 
     <!-- MAIN CONTENT -->
     <main>
-        <!-- NAVIGATION -->
         <header id="navbar" class="fixed top-0 right-0 left-0 z-50 transition-all duration-300 glass">
             <div class="container">
                 <div class="flex items-center justify-between navbar-h">
@@ -864,7 +825,6 @@
             </div>
         </header>
 
-        <!-- HERO SECTION -->
         <section id="home" class="hero-pt min-h-[100svh] flex items-center relative overflow-hidden">
             <div class="absolute inset-0 z-0">
                 <div class="absolute inset-0 hero-overlay z-10"></div>
@@ -896,7 +856,6 @@
             </div>
         </section>
 
-        <!-- PRODUCTS SECTION -->
         <section id="products" class="section-py bg-[#fcf9f5]">
             <div class="container">
                 <div class="text-center mb-8 md:mb-12 section-fade">
@@ -913,7 +872,6 @@
             </div>
         </section>
 
-        <!-- ABOUT SECTION -->
         <section id="about" class="section-py bg-[#fef3e8]">
             <div class="container">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center">
@@ -943,7 +901,6 @@
             </div>
         </section>
 
-        <!-- ORDER SECTION -->
         <section id="order" class="section-py bg-[#fcf9f5]">
             <div class="container">
                 <div class="text-center mb-8 md:mb-12 section-fade">
@@ -974,7 +931,6 @@
             </div>
         </section>
 
-        <!-- CONTACT SECTION -->
         <section id="contact" class="section-py bg-[#fef3e8]">
             <div class="container">
                 <div class="text-center mb-8 md:mb-12 section-fade">
@@ -983,7 +939,6 @@
                     <p class="text-gray-500 max-w-2xl mx-auto mt-2 md:mt-3 text-sm md:text-base lg:text-lg" data-i18n="contact.subtitle">تواصل معنا عبر القنوات التالية</p>
                 </div>
 
-                <!-- شبكة الأزرار -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6 max-w-4xl mx-auto">
                     <a href="https://wa.me/201119288876" target="_blank" rel="noopener" class="contact-btn btn-whatsapp">
                         <i class="fab fa-whatsapp"></i>
@@ -1017,7 +972,6 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
         <footer class="bg-gray-900 text-white pt-10 md:pt-16 pb-6 md:pb-8 border-t border-gray-200">
             <div class="container">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-8 mb-8 md:mb-12">
@@ -1057,12 +1011,9 @@
         </footer>
     </main>
 
-    <!-- ============================================================= -->
-    <!-- ======  كود JavaScript (محسّن)  ====== -->
-    <!-- ============================================================= -->
     <script>
         // =============================================================
-        // ==========  قِسْم تَعديل الصور (Image Customization)  ==========
+        // ==========  قِسْم تَعديل الصور  ==========
         // =============================================================
         const CUSTOM_HERO_IMAGE = "prof.jpg";
         const CUSTOM_ABOUT_IMAGE = "WhatsApp Image 2026-07-16 at 2.34.06 AM.jpeg";
@@ -1180,6 +1131,22 @@
                 'checkout.note': 'سيتم إرسال الطلب مع بياناتك إلى واتساب للمتابعة',
                 'checkout.deliveryNote': 'سعر التوصيل يتم بالاتفاق بين الطرفين.',
                 'checkout.deliverySub': 'يرجى الاتفاق على سعر التوصيل مع المندوب قبل الاستلام.',
+                // ====== مفاتيح الفاتورة الجديدة ======
+                'checkout.greetingLine1': 'الأستاذة الجميلة هلول 🌹',
+                'checkout.greetingLine2': 'نعتذر لإزعاجكم 🙏',
+                'checkout.greetingLine3': 'نرجو منكم تجهيز هذا الطلب مع كامل الحب ❤️',
+                'checkout.invoiceTitle': 'فاتورة طلب جديد',
+                'checkout.section.customer': 'بيانات العميل',
+                'checkout.section.items': 'تفاصيل الطلب',
+                'checkout.section.total': 'المجموع الكلي',
+                'checkout.label.name': 'الاسم',
+                'checkout.label.address': 'العنوان',
+                'checkout.label.phone': 'الهاتف',
+                'checkout.label.notes': 'ملاحظات',
+                'checkout.label.qty': 'الكمية',
+                'checkout.label.subtotal': 'الإجمالي',
+                'checkout.thanks': 'شكراً لثقتكم بنا 🌹',
+                'checkout.newOrder': 'طلب جديد',
             },
             en: {
                 'nav.home': 'Home',
@@ -1261,6 +1228,22 @@
                 'checkout.note': 'Your order will be sent to WhatsApp for processing',
                 'checkout.deliveryNote': 'Delivery fee is agreed upon between both parties.',
                 'checkout.deliverySub': 'Please agree on the delivery fee with the representative before receiving.',
+                // ====== New Invoice Keys ======
+                'checkout.greetingLine1': 'Dear Ms. Hallol 🌹',
+                'checkout.greetingLine2': 'We apologize for the inconvenience 🙏',
+                'checkout.greetingLine3': 'Please prepare this order with all our love ❤️',
+                'checkout.invoiceTitle': 'New Order Invoice',
+                'checkout.section.customer': 'Customer Details',
+                'checkout.section.items': 'Order Details',
+                'checkout.section.total': 'Grand Total',
+                'checkout.label.name': 'Name',
+                'checkout.label.address': 'Address',
+                'checkout.label.phone': 'Phone',
+                'checkout.label.notes': 'Notes',
+                'checkout.label.qty': 'Qty',
+                'checkout.label.subtotal': 'Subtotal',
+                'checkout.thanks': 'Thank you for your trust 🌹',
+                'checkout.newOrder': 'New Order',
             }
         };
 
@@ -1383,17 +1366,6 @@
             if (lang === 'en' || lang === 'ar') currentLanguage = lang;
         }
 
-        function saveState() {
-            const data = {
-                hero: heroImageUrl,
-                about: aboutImageUrl,
-                products: {}
-            };
-            PRODUCTS.forEach(p => { data.products[p.id] = p.image; });
-            localStorage.setItem('marvella_images', JSON.stringify(data));
-            saveCart();
-        }
-
         // =============================================================
         // العناصر والدوال الأساسية
         // =============================================================
@@ -1435,7 +1407,7 @@
 
             if (filtered.length === 0) {
                 productsGrid.innerHTML =
-                    `<div class="col-span-full text-center py-12"><i class="fas fa-box-open text-5xl text-gray-300 mb-4"></i><p class="text-gray-500 text-lg">${t('products.empty') || 'لا توجد منتجات في هذه الفئة'}</p></div>`;
+                    `<div class="col-span-full text-center py-12"><i class="fas fa-box-open text-5xl text-gray-300 mb-4"></i><p class="text-gray-500 text-lg">${t('products.empty')}</p></div>`;
                 return;
             }
 
@@ -1673,7 +1645,7 @@
         }
 
         // =============================================================
-        // إرسال الطلب عبر واتساب
+        // إرسال الطلب عبر واتساب (فاتورة منظمة + رسالة ترحيب)
         // =============================================================
         function sendOrderViaWhatsApp() {
             const name = document.getElementById('checkoutName').value.trim();
@@ -1686,27 +1658,70 @@
                 return;
             }
 
-            let message = `*${t('brand')} - طلب جديد*%0A`;
-            message += `%0A*${t('checkout.name')}:* ${name}`;
-            message += `%0A*${t('checkout.address')}:* ${address}`;
-            message += `%0A*${t('checkout.phone')}:* ${phone}`;
-            if (notes) message += `%0A*${t('checkout.notes')}:* ${notes}`;
-            message += `%0A%0A*${t('checkout.orderSummary')}:*`;
+            const NL = '%0A';
+            const DIV = '━━━━━━━━━━━━━━━━━';
+            const NUM_EMOJI = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
+
+            let message = '';
+
+            // ═══════════ 1) رسالة الترحيب ═══════════
+            message += `🌸 *${t('brand')}* 🌸${NL}`;
+            message += `${NL}`;
+            message += `✨ *${t('checkout.greetingLine1')}*${NL}`;
+            message += `🙏 ${t('checkout.greetingLine2')}${NL}`;
+            message += `❤️ ${t('checkout.greetingLine3')}${NL}`;
+            message += `${NL}`;
+
+            // ═══════════ 2) عنوان الفاتورة ═══════════
+            message += `${DIV}${NL}`;
+            message += `📋 *${t('checkout.invoiceTitle')}*${NL}`;
+            message += `${DIV}${NL}${NL}`;
+
+            // ═══════════ 3) بيانات العميل ═══════════
+            message += `👤 *${t('checkout.section.customer')}*${NL}`;
+            message += `${DIV}${NL}`;
+            message += `🔸 *${t('checkout.label.name')}:* ${name}${NL}`;
+            message += `🔸 *${t('checkout.label.address')}:* ${address}${NL}`;
+            message += `🔸 *${t('checkout.label.phone')}:* ${phone}${NL}`;
+            if (notes) {
+                message += `🔸 *${t('checkout.label.notes')}:* ${notes}${NL}`;
+            }
+            message += `${NL}`;
+
+            // ═══════════ 4) تفاصيل الطلب ═══════════
+            message += `🛒 *${t('checkout.section.items')}*${NL}`;
+            message += `${DIV}${NL}`;
 
             let total = 0;
             cart.forEach((item, idx) => {
-                const nameItem = currentLanguage === 'ar' ? item.nameAr : item.nameEn;
+                const itemName = currentLanguage === 'ar' ? item.nameAr : item.nameEn;
                 const subtotal = item.price * item.qty;
                 total += subtotal;
-                message += `%0A${idx+1}- ${nameItem} × ${item.qty} = ${formatPrice(subtotal)}`;
+
+                const numEmoji = NUM_EMOJI[idx] || `*${idx + 1}.*`;
+                message += `${numEmoji} *${itemName}*${NL}`;
+                message += `     ▪️ ${t('checkout.label.qty')}: ${item.qty} × ${formatPrice(item.price)}${NL}`;
+                message += `     ▪️ ${t('checkout.label.subtotal')}: *${formatPrice(subtotal)}*${NL}${NL}`;
             });
 
-            message += `%0A%0A*${t('cart.total')}:* ${formatPrice(total)}`;
-            message += `%0A%0A${t('checkout.deliveryNote')}`;
+            // ═══════════ 5) المجموع الكلي ═══════════
+            message += `${DIV}${NL}`;
+            message += `💰 *${t('checkout.section.total')}:* *${formatPrice(total)}*${NL}`;
+            message += `${DIV}${NL}${NL}`;
 
+            // ═══════════ 6) ملاحظة التوصيل ═══════════
+            message += `⚠️ _${t('checkout.deliveryNote')}_${NL}`;
+            message += `${NL}`;
+
+            // ═══════════ 7) شكراً ═══════════
+            message += `🌹 *${t('checkout.thanks')}*${NL}`;
+            message += `💚 _${t('brand')}_`;
+
+            // فتح واتساب
             const url = getWhatsappLink() + '?text=' + message;
             window.open(url, '_blank');
 
+            // إفراغ السلة وإغلاق الـ checkout
             cart = [];
             saveCart();
             updateCartUI();
@@ -1770,15 +1785,9 @@
             }
         });
 
-        // منع التمرير الأفقي عند فتح القوائم
-        window.addEventListener('orientationchange', () => {
-            document.body.style.overflow = '';
-        });
-
-        console.log('🚀 Marvella Organics - نسخة متجاوبة بالكامل');
+        console.log('🚀 Marvella Organics - نسخة متجاوبة + فاتورة منظمة');
         console.log('📦 عدد المنتجات:', PRODUCTS.length);
         console.log('📱 WhatsApp:', CONFIG.whatsappNumber);
-        console.log('📐 Responsive breakpoints: 360, 480, 640, 768, 1024, 1280, 1536');
     </script>
 
 </body>
