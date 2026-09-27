@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مارفيلا اورجانيكس - المنتجات السودانية الأصيلة </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>مارفيلا اورجانيكس - المنتجات السودانية الأصيلة</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,8 +17,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        /* ===== الأنماط الأساسية - نسخة بيضاء ===== */
-        * {م
+        /* ===== الأنماط الأساسية - نسخة متجاوبة بالكامل ===== */
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -26,25 +26,54 @@
         }
 
         :root {
-            --primary: #B45309;      /* بني غامق */
-            --secondary: #166534;    /* أخضر غامق */
-            --accent: #D97706;       /* برتقالي */
-            --bg: #fcf9f5;           /* خلفية بيج فاتح */
-            --text: #1F2937;         /* رمادي غامق */
-            --card-bg: #ffffff;      /* أبيض للبطاقات */
-            --border-color: #e5e7eb; /* رمادي فاتح */
+            --primary: #B45309;
+            --secondary: #166534;
+            --accent: #D97706;
+            --bg: #fcf9f5;
+            --text: #1F2937;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
             --shadow: 0 4px 20px rgba(0,0,0,0.08);
             --shadow-hover: 0 20px 50px rgba(180,83,9,0.15);
         }
 
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
             background: var(--bg);
             color: var(--text);
             font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+            min-height: 100vh;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* ===== Container متجاوب ===== */
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+        @media (min-width: 480px) {
+            .container { padding-left: 20px; padding-right: 20px; }
+        }
+        @media (min-width: 768px) {
+            .container { max-width: 720px; padding-left: 24px; padding-right: 24px; }
+        }
+        @media (min-width: 1024px) {
+            .container { max-width: 960px; }
+        }
+        @media (min-width: 1280px) {
+            .container { max-width: 1200px; }
+        }
+        @media (min-width: 1536px) {
+            .container { max-width: 1400px; }
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #92400e; }
@@ -52,6 +81,7 @@
         .glass {
             background: rgba(255, 253, 248, 0.85);
             backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255,255,255,0.3);
         }
 
@@ -61,13 +91,17 @@
                     rgba(22, 101, 52, 0.55) 100%);
         }
 
+        /* ===== Product Card ===== */
         .product-card {
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 16px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .product-card:hover {
             transform: translateY(-6px);
@@ -77,103 +111,113 @@
         .product-card img { transition: transform 0.6s ease; }
         .product-card:hover img { transform: scale(1.04); }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), #92400e);
-            color: #fff;
-            padding: 14px 36px;
+        /* ===== Buttons ===== */
+        .btn-primary,
+        .btn-secondary,
+        .btn-success {
+            padding: 12px 26px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 24px rgba(180,83,9,0.3);
-            border: none;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #92400e);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(180,83,9,0.3);
+            border: none;
         }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(180,83,9,0.4); }
 
         .btn-secondary {
             background: transparent;
             color: var(--text);
-            padding: 14px 36px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
             border: 2px solid var(--primary);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
         }
         .btn-secondary:hover { background: var(--primary); color: #fff; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(180,83,9,0.25); }
 
         .btn-success {
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: #fff;
-            padding: 14px 36px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
             box-shadow: 0 8px 24px rgba(37,211,102,0.35);
             border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
         }
         .btn-success:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(37,211,102,0.45); }
 
+        @media (min-width: 768px) {
+            .btn-primary, .btn-secondary, .btn-success {
+                padding: 14px 36px;
+                font-size: 1.05rem;
+                gap: 10px;
+            }
+        }
+
+        /* ===== Cart Badge ===== */
         .cart-badge {
             background: var(--accent);
             color: #fff;
             border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 0.7rem;
+            min-width: 20px;
+            height: 20px;
+            font-size: 0.68rem;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: -6px;
+            right: -6px;
+            padding: 0 4px;
         }
 
         .category-tag {
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: #fff;
-            padding: 4px 16px;
+            padding: 4px 14px;
             border-radius: 50px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
             display: inline-block;
+            white-space: nowrap;
         }
 
+        /* ===== Qty Button ===== */
         .qty-btn {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             border: 1px solid #e5e7eb;
             background: #fff;
             color: var(--text);
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
         .qty-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
         .qty-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-        .cart-item { border-bottom: 1px solid #e5e7eb; padding: 16px 0; transition: all 0.3s ease; }
+        @media (min-width: 768px) {
+            .qty-btn { width: 36px; height: 36px; font-size: 1.1rem; }
+        }
+
+        .cart-item { border-bottom: 1px solid #e5e7eb; padding: 14px 0; transition: all 0.3s ease; }
         .cart-item:last-child { border-bottom: none; }
 
+        /* ===== Nav Link ===== */
         .nav-link {
             color: var(--text);
             font-weight: 600;
@@ -181,33 +225,34 @@
             transition: all 0.3s ease;
             padding: 6px 0;
             position: relative;
+            text-decoration: none;
         }
         .nav-link::after { content: ''; position: absolute; bottom: -2px; right: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease; }
         .nav-link:hover::after { width: 100%; }
         .nav-link:hover { color: var(--primary); }
 
+        /* ===== Mobile Menu ===== */
         .mobile-menu {
             position: fixed;
             top: 0;
             right: -100%;
-            width: 80%;
-            max-width: 360px;
+            width: 85%;
+            max-width: 340px;
             height: 100vh;
+            height: 100dvh;
             background: #fff;
             z-index: 1000;
             transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            padding: 30px 24px;
+            padding: 24px 20px;
             box-shadow: -10px 0 40px rgba(0,0,0,0.1);
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         .mobile-menu.open { right: 0; }
 
         .menu-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
+            inset: 0;
             background: rgba(0,0,0,0.4);
             z-index: 999;
             opacity: 0;
@@ -216,80 +261,113 @@
         }
         .menu-overlay.open { opacity: 1; pointer-events: all; }
 
+        /* ===== Cart Sidebar ===== */
         .cart-sidebar {
             position: fixed;
             top: 0;
             left: -100%;
-            width: 90%;
+            width: 92%;
             max-width: 440px;
             height: 100vh;
+            height: 100dvh;
             background: #fff;
             z-index: 1000;
             transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            padding: 24px 20px;
+            padding: 20px 18px;
             box-shadow: 10px 0 40px rgba(0,0,0,0.1);
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            flex-direction: column;
         }
         .cart-sidebar.open { left: 0; }
 
-        /* checkout overlay */
+        @media (min-width: 480px) {
+            .cart-sidebar { padding: 24px 20px; }
+        }
+
+        /* ===== Checkout Overlay ===== */
         .checkout-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
+            inset: 0;
             background: rgba(0,0,0,0.5);
             z-index: 1100;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
-            padding: 20px;
+            padding: 0;
         }
         .checkout-overlay.open { opacity: 1; pointer-events: all; }
+
         .checkout-panel {
             background: #fff;
             max-width: 700px;
             width: 100%;
-            max-height: 90vh;
-            border-radius: 28px;
-            padding: 30px 28px;
+            max-height: 92vh;
+            max-height: 92dvh;
+            border-radius: 24px 24px 0 0;
+            padding: 22px 18px;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             box-shadow: 0 30px 80px rgba(0,0,0,0.25);
-            transform: scale(0.95);
+            transform: translateY(20px);
             transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .checkout-overlay.open .checkout-panel { transform: scale(1); }
+        .checkout-overlay.open .checkout-panel { transform: translateY(0); }
 
+        @media (min-width: 640px) {
+            .checkout-overlay {
+                align-items: center;
+                padding: 20px;
+            }
+            .checkout-panel {
+                border-radius: 28px;
+                padding: 30px 28px;
+                max-height: 90vh;
+                max-height: 90dvh;
+                transform: scale(0.95);
+            }
+            .checkout-overlay.open .checkout-panel { transform: scale(1); }
+        }
+
+        /* ===== Form Input ===== */
         .form-input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 14px;
             border-radius: 12px;
             border: 2px solid #e5e7eb;
             background: #fff;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
             color: var(--text);
             font-family: 'Cairo', sans-serif;
         }
+        @media (min-width: 640px) {
+            .form-input { padding: 14px 18px; font-size: 1rem; }
+        }
         .form-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(180,83,9,0.1); }
         .form-input::placeholder { color: #9ca3af; }
 
-        @media (max-width: 640px) {
-            .hero-title { font-size: 2.2rem !important; }
-            .hero-subtitle { font-size: 1.1rem !important; }
-            .hero-desc { font-size: 0.95rem !important; }
-            .section-title { font-size: 1.6rem !important; }
-            .btn-primary, .btn-secondary, .btn-success { padding: 12px 24px; font-size: 0.95rem; }
-            .checkout-panel { padding: 20px 16px; }
+        /* ===== Product Image ===== */
+        .product-img-container {
+            position: relative;
+            padding-top: 75%;
+            overflow: hidden;
+            background: #f9f5f0;
+            flex-shrink: 0;
         }
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .hero-title { font-size: 3rem !important; }
+        .product-img-container img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
+        /* ===== Animations ===== */
         .product-grid-item {
             opacity: 0;
             transform: translateY(30px);
@@ -313,85 +391,109 @@
 
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
+        .section-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.7s ease forwards;
+        }
+
+        /* ===== Toast ===== */
         .toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 16px;
+            left: 16px;
             background: var(--secondary);
             color: #fff;
-            padding: 16px 28px;
-            border-radius: 16px;
+            padding: 14px 20px;
+            border-radius: 14px;
             box-shadow: 0 12px 40px rgba(0,0,0,0.2);
             z-index: 9999;
-            transform: translateY(100px);
+            transform: translateY(140%);
             opacity: 0;
             transition: all 0.4s ease;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 12px;
-            max-width: 90%;
+            gap: 10px;
+            font-size: 0.9rem;
         }
         .toast.show { transform: translateY(0); opacity: 1; }
 
+        @media (min-width: 640px) {
+            .toast {
+                bottom: 30px;
+                right: 30px;
+                left: auto;
+                max-width: 400px;
+                padding: 16px 28px;
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== WhatsApp Float ===== */
         .whatsapp-float {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
+            bottom: 20px;
+            left: 16px;
             z-index: 100;
             background: #25D366;
             color: #fff;
-            width: 60px;
-            height: 60px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.6rem;
             box-shadow: 0 8px 30px rgba(37,211,102,0.4);
             transition: all 0.3s ease;
             text-decoration: none;
         }
         .whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(37,211,102,0.5); color: #fff; }
 
-        @media (max-width: 480px) {
-            .whatsapp-float { width: 52px; height: 52px; font-size: 1.6rem; bottom: 20px; left: 20px; }
-            .toast { bottom: 80px; right: 16px; padding: 12px 20px; font-size: 0.9rem; max-width: calc(100% - 32px); }
+        @media (min-width: 640px) {
+            .whatsapp-float {
+                bottom: 30px;
+                left: 30px;
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
         }
 
+        /* ===== Select ===== */
         select.form-input {
             appearance: none;
+            -webkit-appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: left 16px center;
             padding-left: 44px;
         }
 
-        .product-img-container { position: relative; padding-top: 75%; overflow: hidden; background: #f9f5f0; }
-        .product-img-container img { position: absolute; top: 0; right: 0; width: 100%; height: 100%; object-fit: cover; }
-
-        .section-fade { opacity: 0; transform: translateY(30px); animation: fadeUp 0.7s ease forwards; }
-        .section-fade:nth-child(2) { animation-delay: 0.1s; }
-        .section-fade:nth-child(3) { animation-delay: 0.2s; }
-        .section-fade:nth-child(4) { animation-delay: 0.3s; }
-
+        /* ===== Language Toggle ===== */
         .lang-toggle {
             background: transparent;
             border: 2px solid var(--primary);
             color: var(--primary);
             font-weight: 700;
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        @media (min-width: 640px) {
+            .lang-toggle { padding: 4px 12px; font-size: 0.8rem; }
         }
         .lang-toggle:hover { background: var(--primary); color: #fff; }
 
         /* إخفاء واجهة تعديل الصور */
         .img-mgr-toggle, .img-mgr-panel, .img-mgr-row, .product-img-mgr-item { display: none !important; }
 
-        /* تخصيص الألوان للنسخة البيضاء */
+        /* ===== تخصيص الألوان ===== */
         .bg-\[\#FFFDF8\] { background: #fcf9f5; }
         .bg-\[\#FEF3E8\] { background: #fef3e8; }
         .text-\[\#B45309\] { color: #B45309; }
@@ -408,6 +510,7 @@
         .text-gray-600 { color: #4B5563; }
         .text-gray-500 { color: #6B7280; }
         .text-gray-400 { color: #9CA3AF; }
+        .text-gray-300 { color: #D1D5DB; }
         .border-gray-200 { border-color: #e5e7eb; }
         .border-gray-100 { border-color: #f3f4f6; }
         .hover\:text-\[\#B45309\]:hover { color: #B45309; }
@@ -437,45 +540,49 @@
         .bg-white\/10 { background: rgba(255,255,255,0.1); }
         .hover\:bg-white:hover { background: #f9f5f0; }
         .bg-white\/95 { background: rgba(255,255,255,0.95); }
-        .text-\[\#FDE68A\] { color: #B45309; }
-        .bg-\[\#FDE68A\] { background: #FDE68A; }
-        .text-\[\#B45309\] { color: #B45309; }
-        .bg-\[\#B45309\] { background: #B45309; }
-        .bg-\[\#B45309\]\/10 { background: rgba(180,83,9,0.08); }
-        .hover\:bg-\[\#B45309\]\/20:hover { background: rgba(180,83,9,0.12); }
         .bg-gray-900 { background: #f9f5f0; }
         .bg-gray-800 { background: #f3f0ea; }
-        .bg-gray-700 { background: #e5e0d8; }
+        .bg-gray-50 { background: #fafaf9; }
+        .bg-gray-100 { background: #f3f4f6; }
         .text-white { color: #1F2937; }
         .text-yellow-300 { color: #B45309; }
         .border-gray-700 { border-color: #d1ccc4; }
         .border-gray-800 { border-color: #c5bfb6; }
         .hover\:bg-gray-700:hover { background: #d5cfc6; }
         .hover\:bg-gray-600:hover { background: #c5bfb6; }
-        .bg-black { background: #fcf9f5; }
-        .border-t { border-top-color: #e5e7eb; }
 
-        /* تنسيق أزرار التواصل */
+        /* ===== Contact Buttons ===== */
         .contact-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            padding: 18px 24px;
-            border-radius: 16px;
+            gap: 10px;
+            padding: 14px 16px;
+            border-radius: 14px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
             border: 2px solid transparent;
             text-decoration: none;
             color: #fff;
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            width: 100%;
         }
         .contact-btn:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
-        .contact-btn i { font-size: 1.6rem; }
+        .contact-btn i { font-size: 1.3rem; }
+
+        @media (min-width: 640px) {
+            .contact-btn { padding: 18px 24px; font-size: 1.05rem; gap: 12px; }
+            .contact-btn i { font-size: 1.5rem; }
+        }
+        @media (min-width: 1024px) {
+            .contact-btn { padding: 20px 28px; font-size: 1.1rem; }
+            .contact-btn i { font-size: 1.6rem; }
+        }
+
         .btn-whatsapp { background: #25D366; border-color: #25D366; }
         .btn-whatsapp:hover { background: #1ebe5d; border-color: #1ebe5d; }
         .btn-facebook { background: #1877F2; border-color: #1877F2; }
@@ -489,20 +596,116 @@
         .btn-location { background: #B45309; border-color: #B45309; }
         .btn-location:hover { background: #9e4608; border-color: #9e4608; }
 
-        @media (max-width: 640px) {
-            .contact-btn { padding: 14px 18px; font-size: 0.95rem; }
-            .contact-btn i { font-size: 1.3rem; }
-        }
-
-        /* تنسيق عناصر نموذج الدفع */
+        /* ===== Checkout Item ===== */
         .checkout-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 8px 0;
             border-bottom: 1px dashed #e5e7eb;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+        @media (min-width: 640px) {
+            .checkout-item { font-size: 1rem; }
         }
         .checkout-item:last-child { border-bottom: none; }
+
+        /* ===== Typography Responsive with clamp ===== */
+        .hero-title {
+            font-size: clamp(1.75rem, 6vw, 4rem);
+            line-height: 1.15;
+        }
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3.2vw, 2rem);
+            line-height: 1.3;
+        }
+        .hero-desc {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            line-height: 1.6;
+        }
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            line-height: 1.2;
+        }
+        .section-heading {
+            font-size: clamp(1.4rem, 3.8vw, 2.25rem);
+            line-height: 1.2;
+        }
+
+        /* ===== Line Clamp ===== */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-clamp: 2;
+        }
+
+        /* ===== Navbar height ===== */
+        .navbar-h { height: 60px; }
+        @media (min-width: 768px) { .navbar-h { height: 72px; } }
+        @media (min-width: 1024px) { .navbar-h { height: 80px; } }
+
+        .hero-pt { padding-top: 60px; }
+        @media (min-width: 768px) { .hero-pt { padding-top: 72px; } }
+        @media (min-width: 1024px) { .hero-pt { padding-top: 80px; } }
+
+        /* ===== Grid responsive for products ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 16px;
+        }
+        @media (min-width: 480px) {
+            .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+        }
+        @media (min-width: 768px) {
+            .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+        }
+        @media (min-width: 1024px) {
+            .products-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+        }
+        @media (min-width: 1280px) {
+            .products-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+        }
+
+        /* ===== Responsive brand name ===== */
+        .brand-text {
+            font-size: 1.05rem;
+        }
+        @media (min-width: 480px) { .brand-text { font-size: 1.25rem; } }
+        @media (min-width: 768px) { .brand-text { font-size: 1.5rem; } }
+        @media (min-width: 1024px) { .brand-text { font-size: 1.75rem; } }
+
+        /* ===== Section padding ===== */
+        .section-py { padding-top: 48px; padding-bottom: 48px; }
+        @media (min-width: 640px) { .section-py { padding-top: 64px; padding-bottom: 64px; } }
+        @media (min-width: 1024px) { .section-py { padding-top: 96px; padding-bottom: 96px; } }
+
+        /* ===== Fix for iOS bottom safe area ===== */
+        @supports (padding: env(safe-area-inset-bottom)) {
+            .whatsapp-float { bottom: calc(20px + env(safe-area-inset-bottom)); }
+            .toast { bottom: calc(20px + env(safe-area-inset-bottom)); }
+        }
+
+        /* ===== Utility to prevent overflow ===== */
+        .no-scroll-x { overflow-x: hidden; }
+
+        /* ===== Hide horizontal scroll on category filter row ===== */
+        .category-scroll {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .category-scroll::-webkit-scrollbar { display: none; }
+
+        /* ===== Prevent text overflow on very small ===== */
+        @media (max-width: 360px) {
+            .brand-text { font-size: 0.95rem !important; }
+            .hero-title { font-size: 1.5rem !important; }
+            .contact-btn { font-size: 0.85rem; padding: 12px 12px; }
+            .contact-btn i { font-size: 1.15rem; }
+        }
     </style>
 </head>
 <body>
@@ -513,19 +716,19 @@
     <!-- MOBILE MENU -->
     <div id="menuOverlay" class="menu-overlay" onclick="closeMobileMenu()"></div>
     <div id="mobileMenu" class="mobile-menu">
-        <div class="flex justify-between items-center mb-8">
-            <span class="text-2xl font-black text-[#B45309]" id="mobileBrand">مارفيلا اورجانيكس</span>
-            <button onclick="closeMobileMenu()" class="text-2xl text-gray-600 hover:text-[#B45309] transition"><i class="fas fa-times"></i></button>
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+            <span class="brand-text font-black text-[#B45309]" id="mobileBrand">مارفيلا اورجانيكس</span>
+            <button onclick="closeMobileMenu()" class="text-2xl text-gray-600 hover:text-[#B45309] transition p-2" aria-label="إغلاق"><i class="fas fa-times"></i></button>
         </div>
-        <nav class="flex flex-col gap-4 text-right">
-            <a href="#home" onclick="closeMobileMenu()" class="text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.home">الرئيسية</a>
-            <a href="#products" onclick="closeMobileMenu()" class="text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.products">المنتجات</a>
-            <a href="#about" onclick="closeMobileMenu()" class="text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.about">من نحن</a>
-            <a href="#order" onclick="closeMobileMenu()" class="text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.order">طريقة الطلب</a>
-            <a href="#contact" onclick="closeMobileMenu()" class="text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.contact">تواصل معنا</a>
+        <nav class="flex flex-col gap-3 text-right">
+            <a href="#home" onclick="closeMobileMenu()" class="text-base md:text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.home">الرئيسية</a>
+            <a href="#products" onclick="closeMobileMenu()" class="text-base md:text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.products">المنتجات</a>
+            <a href="#about" onclick="closeMobileMenu()" class="text-base md:text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.about">من نحن</a>
+            <a href="#order" onclick="closeMobileMenu()" class="text-base md:text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.order">طريقة الطلب</a>
+            <a href="#contact" onclick="closeMobileMenu()" class="text-base md:text-lg font-semibold text-gray-700 hover:text-[#B45309] transition border-b border-gray-100 pb-3" data-i18n="nav.contact">تواصل معنا</a>
         </nav>
-        <div class="mt-8 pt-6 border-t border-gray-200">
-            <button onclick="closeMobileMenu(); openCart()" class="w-full bg-[#B45309] text-white py-3 rounded-xl font-bold flex items-center justify-center gap-3">
+        <div class="mt-6 pt-5 border-t border-gray-200">
+            <button onclick="closeMobileMenu(); openCart()" class="w-full bg-[#B45309] text-white py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-[#92400e] transition">
                 <i class="fas fa-shopping-cart"></i><span data-i18n="cart.title">السلة</span>
                 <span id="mobileCartCount" class="bg-white text-[#B45309] px-2 py-0.5 rounded-full text-sm font-bold">0</span>
             </button>
@@ -535,24 +738,27 @@
     <!-- CART SIDEBAR -->
     <div id="cartOverlay" class="menu-overlay" onclick="closeCart()"></div>
     <div id="cartSidebar" class="cart-sidebar">
-        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
-            <h2 class="text-2xl font-bold text-gray-800"><i class="fas fa-shopping-cart text-[#B45309] ml-2"></i><span data-i18n="cart.title">سلة التسوق</span></h2>
-            <button onclick="closeCart()" class="text-2xl text-gray-500 hover:text-[#B45309] transition"><i class="fas fa-times"></i></button>
+        <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-200 flex-shrink-0">
+            <h2 class="text-lg md:text-xl font-bold text-gray-800 flex items-center gap-2">
+                <i class="fas fa-shopping-cart text-[#B45309]"></i>
+                <span data-i18n="cart.title">سلة التسوق</span>
+            </h2>
+            <button onclick="closeCart()" class="text-xl text-gray-500 hover:text-[#B45309] transition p-2 -m-2" aria-label="إغلاق"><i class="fas fa-times"></i></button>
         </div>
-        <div id="cartItems" class="flex-1 overflow-y-auto max-h-[55vh]">
-            <div id="emptyCart" class="text-center py-12">
-                <i class="fas fa-shopping-bag text-5xl text-gray-300 mb-4"></i>
-                <p class="text-gray-500 text-lg" data-i18n="cart.empty">سلة التسوق فارغة</p>
+        <div id="cartItems" class="flex-1 overflow-y-auto">
+            <div id="emptyCart" class="text-center py-10">
+                <i class="fas fa-shopping-bag text-4xl md:text-5xl text-gray-300 mb-3"></i>
+                <p class="text-gray-500 text-base md:text-lg" data-i18n="cart.empty">سلة التسوق فارغة</p>
                 <p class="text-gray-400 text-sm mt-1" data-i18n="cart.emptyHint">أضف بعض المنتجات الرائعة!</p>
             </div>
             <div id="cartList" class="hidden"></div>
         </div>
-        <div id="cartFooter" class="hidden border-t border-gray-200 pt-4 mt-4">
-            <div class="flex justify-between text-lg font-bold mb-4">
+        <div id="cartFooter" class="hidden border-t border-gray-200 pt-4 mt-4 flex-shrink-0">
+            <div class="flex justify-between text-base md:text-lg font-bold mb-3">
                 <span class="text-gray-700" data-i18n="cart.total">المجموع</span>
                 <span id="cartTotal" class="text-[#B45309]">0.00 جنيه</span>
             </div>
-            <button onclick="openCheckout()" class="w-full btn-success justify-center"><i class="fab fa-whatsapp"></i><span data-i18n="cart.checkout">متابعة الطلب</span></button>
+            <button onclick="openCheckout()" class="w-full btn-success"><i class="fab fa-whatsapp"></i><span data-i18n="cart.checkout">متابعة الطلب</span></button>
             <button onclick="clearCart()" class="w-full mt-2 text-sm text-gray-500 hover:text-red-500 transition py-2"><i class="fas fa-trash-alt ml-1"></i><span data-i18n="cart.clear">إفراغ السلة</span></button>
         </div>
     </div>
@@ -561,40 +767,43 @@
     <div id="checkoutOverlay" class="checkout-overlay" onclick="if(event.target===this) closeCheckout()">
         <div class="checkout-panel">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-200">
-                <h2 class="text-2xl font-bold text-gray-800"><i class="fas fa-clipboard-list text-[#B45309] ml-2"></i><span data-i18n="checkout.title">إكمال الطلب</span></h2>
-                <button onclick="closeCheckout()" class="text-2xl text-gray-500 hover:text-[#B45309] transition"><i class="fas fa-times"></i></button>
+                <h2 class="text-lg md:text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <i class="fas fa-clipboard-list text-[#B45309]"></i>
+                    <span data-i18n="checkout.title">إكمال الطلب</span>
+                </h2>
+                <button onclick="closeCheckout()" class="text-xl md:text-2xl text-gray-500 hover:text-[#B45309] transition p-2 -m-2" aria-label="إغلاق"><i class="fas fa-times"></i></button>
             </div>
 
-            <!-- ========================================================= -->
-            <!-- ====== تنبيه سعر التوصيل في أعلى الصفحة (خط واضح) ====== -->
-            <!-- ========================================================= -->
-            <div class="mb-5 p-4 bg-amber-50 border-r-4 border-amber-500 rounded-xl text-amber-800 flex items-start gap-3 shadow-sm">
-                <i class="fas fa-info-circle text-amber-600 text-xl mt-0.5"></i>
+            <!-- تنبيه سعر التوصيل -->
+            <div class="mb-5 p-3 md:p-4 bg-amber-50 border-r-4 border-amber-500 rounded-xl text-amber-800 flex items-start gap-3 shadow-sm">
+                <i class="fas fa-info-circle text-amber-600 text-lg md:text-xl mt-0.5 flex-shrink-0"></i>
                 <div>
-                    <p class="font-bold text-base md:text-lg" data-i18n="checkout.deliveryNote">سعر التوصيل يتم بالاتفاق بين الطرفين.</p>
+                    <p class="font-bold text-sm md:text-base" data-i18n="checkout.deliveryNote">سعر التوصيل يتم بالاتفاق بين الطرفين.</p>
                     <p class="text-xs text-amber-700/70 mt-0.5" data-i18n="checkout.deliverySub">يرجى الاتفاق على سعر التوصيل مع المندوب قبل الاستلام.</p>
                 </div>
             </div>
-            <!-- ========================================================= -->
 
             <!-- نموذج بيانات العميل -->
-            <div class="mb-6">
-                <h3 class="text-lg font-bold text-gray-700 mb-3"><i class="fas fa-user text-[#B45309] ml-2"></i><span data-i18n="checkout.customerInfo">بيانات العميل</span></h3>
-                <div class="space-y-4">
+            <div class="mb-5">
+                <h3 class="text-base md:text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">
+                    <i class="fas fa-user text-[#B45309]"></i>
+                    <span data-i18n="checkout.customerInfo">بيانات العميل</span>
+                </h3>
+                <div class="space-y-3 md:space-y-4">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.name">الاسم</label>
+                        <label class="block text-xs md:text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.name">الاسم</label>
                         <input type="text" id="checkoutName" class="form-input" placeholder="أدخل اسمك" required />
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.address">العنوان</label>
+                        <label class="block text-xs md:text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.address">العنوان</label>
                         <input type="text" id="checkoutAddress" class="form-input" placeholder="العنوان بالتفصيل" required />
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.phone">رقم الهاتف</label>
+                        <label class="block text-xs md:text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.phone">رقم الهاتف</label>
                         <input type="tel" id="checkoutPhone" class="form-input" placeholder="مثال: 01012345678" required />
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.notes">ملاحظات إضافية</label>
+                        <label class="block text-xs md:text-sm font-semibold text-gray-600 mb-1" data-i18n="checkout.notes">ملاحظات إضافية</label>
                         <textarea id="checkoutNotes" class="form-input" rows="2" placeholder="أي ملاحظات حول الطلب..."></textarea>
                     </div>
                 </div>
@@ -602,18 +811,21 @@
 
             <!-- ملخص الطلب -->
             <div class="mb-4">
-                <h3 class="text-lg font-bold text-gray-700 mb-3"><i class="fas fa-shopping-bag text-[#B45309] ml-2"></i><span data-i18n="checkout.orderSummary">ملخص الطلب</span></h3>
-                <div id="checkoutSummary" class="bg-gray-50 rounded-xl p-4 max-h-48 overflow-y-auto">
+                <h3 class="text-base md:text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">
+                    <i class="fas fa-shopping-bag text-[#B45309]"></i>
+                    <span data-i18n="checkout.orderSummary">ملخص الطلب</span>
+                </h3>
+                <div id="checkoutSummary" class="bg-gray-50 rounded-xl p-3 md:p-4 max-h-40 md:max-h-48 overflow-y-auto">
                     <!-- سيتم ملؤها بواسطة JavaScript -->
                 </div>
-                <div class="flex justify-between text-lg font-bold mt-4 pt-3 border-t border-gray-200">
+                <div class="flex justify-between text-base md:text-lg font-bold mt-3 md:mt-4 pt-3 border-t border-gray-200">
                     <span class="text-gray-700" data-i18n="cart.total">المجموع</span>
                     <span id="checkoutTotal" class="text-[#B45309]">0.00 جنيه</span>
                 </div>
             </div>
 
             <!-- زر الإرسال -->
-            <button onclick="sendOrderViaWhatsApp()" class="w-full btn-success justify-center text-lg mt-2">
+            <button onclick="sendOrderViaWhatsApp()" class="w-full btn-success text-base md:text-lg mt-2">
                 <i class="fab fa-whatsapp"></i><span data-i18n="checkout.send">إرسال الطلب عبر واتساب</span>
             </button>
             <p class="text-xs text-gray-400 text-center mt-3" data-i18n="checkout.note">سيتم إرسال الطلب مع بياناتك إلى واتساب للمتابعة</p>
@@ -621,109 +833,109 @@
     </div>
 
     <!-- WHATSAPP FLOAT -->
-    <a href="#" id="whatsappFloat" class="whatsapp-float" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+    <a href="#" id="whatsappFloat" class="whatsapp-float" target="_blank" rel="noopener" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
 
     <!-- MAIN CONTENT -->
     <main>
         <!-- NAVIGATION -->
         <header id="navbar" class="fixed top-0 right-0 left-0 z-50 transition-all duration-300 glass">
-            <div class="container mx-auto px-4 md:px-8">
-                <div class="flex items-center justify-between h-16 md:h-20">
-                    <a href="#home" class="flex items-center gap-2">
-                        <span class="text-2xl md:text-3xl font-black text-[#B45309]" id="brandName"> مارفيلا اورجانيكس</span>
-                        <span class="text-xs bg-[#166534] text-white px-2 py-0.5 rounded-full font-bold">EG</span>
+            <div class="container">
+                <div class="flex items-center justify-between navbar-h">
+                    <a href="#home" class="flex items-center gap-2 min-w-0">
+                        <span class="brand-text font-black text-[#B45309] truncate" id="brandName">مارفيلا اورجانيكس</span>
+                        <span class="text-[10px] md:text-xs bg-[#166534] text-white px-2 py-0.5 rounded-full font-bold flex-shrink-0">EG</span>
                     </a>
-                    <nav class="hidden lg:flex items-center gap-8">
+                    <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
                         <a href="#home" class="nav-link" data-i18n="nav.home">الرئيسية</a>
                         <a href="#products" class="nav-link" data-i18n="nav.products">المنتجات</a>
                         <a href="#about" class="nav-link" data-i18n="nav.about">من نحن</a>
                         <a href="#order" class="nav-link" data-i18n="nav.order">طريقة الطلب</a>
                         <a href="#contact" class="nav-link" data-i18n="nav.contact">تواصل معنا</a>
                     </nav>
-                    <div class="flex items-center gap-3 md:gap-4">
+                    <div class="flex items-center gap-2 md:gap-3 flex-shrink-0">
                         <button onclick="toggleLanguage()" class="lang-toggle" id="langToggle">EN</button>
-                        <button onclick="openCart()" class="relative p-2 rounded-full hover:bg-[#B45309]/10 transition">
-                            <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <button onclick="openCart()" class="relative p-2 rounded-full hover:bg-[#B45309]/10 transition" aria-label="السلة">
+                            <i class="fas fa-shopping-cart text-lg md:text-xl text-gray-700"></i>
                             <span id="cartBadge" class="cart-badge hidden">0</span>
                         </button>
-                        <button onclick="openMobileMenu()" class="lg:hidden p-2 rounded-full hover:bg-[#B45309]/10 transition"><i class="fas fa-bars text-xl text-gray-700"></i></button>
+                        <button onclick="openMobileMenu()" class="lg:hidden p-2 rounded-full hover:bg-[#B45309]/10 transition" aria-label="القائمة"><i class="fas fa-bars text-lg md:text-xl text-gray-700"></i></button>
                     </div>
                 </div>
             </div>
         </header>
 
         <!-- HERO SECTION -->
-        <section id="home" class="pt-16 md:pt-20 min-h-screen flex items-center relative overflow-hidden">
+        <section id="home" class="hero-pt min-h-[100svh] flex items-center relative overflow-hidden">
             <div class="absolute inset-0 z-0">
                 <div class="absolute inset-0 hero-overlay z-10"></div>
                 <img id="heroImage" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80" alt="المنتجات السودانية الأصيلة" class="w-full h-full object-cover" loading="lazy" />
             </div>
-            <div class="container mx-auto px-4 md:px-8 relative z-20 py-16 md:py-24">
+            <div class="container relative z-20 py-12 md:py-20 lg:py-24">
                 <div class="max-w-2xl">
-                    <div class="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-white/30">
+                    <div class="inline-block bg-white/20 backdrop-blur-sm text-white px-3 py-1.5 md:px-4 rounded-full text-xs md:text-sm font-bold mb-5 md:mb-6 border border-white/30">
                         <i class="fas fa-star text-yellow-300 ml-1"></i><span data-i18n="hero.badge">المنتجات السودانية الأصيلة</span>
                     </div>
-                    <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4" id="heroTitle">  مارفيلا اورجانيكس</h1>
-                    <p class="hero-subtitle text-2xl md:text-3xl font-bold text-[#FDE68A] mb-4" data-i18n="hero.subtitle">كل المنتجات السودانية الأصيلة في مكان واحد</p>
-                    <p class="hero-desc text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-xl" data-i18n="hero.desc">نوفر لكم أجود المنتجات السودانية الطبيعية والمخبوزات التقليدية مع سهولة الطلب عبر واتساب.</p>
-                    <div class="flex flex-wrap gap-4">
+                    <h1 class="hero-title font-black text-white mb-3 md:mb-4" id="heroTitle">مارفيلا اورجانيكس</h1>
+                    <p class="hero-subtitle font-bold text-[#FDE68A] mb-3 md:mb-4" data-i18n="hero.subtitle">كل المنتجات السودانية الأصيلة في مكان واحد</p>
+                    <p class="hero-desc text-white/90 mb-6 md:mb-8 max-w-xl" data-i18n="hero.desc">نوفر لكم أجود المنتجات السودانية الطبيعية والمخبوزات التقليدية مع سهولة الطلب عبر واتساب.</p>
+                    <div class="flex flex-wrap gap-3 md:gap-4">
                         <a href="#products" class="btn-primary"><i class="fas fa-shopping-bag"></i><span data-i18n="hero.shopNow">تسوق الآن</span></a>
                         <a href="#contact" class="btn-secondary bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white hover:text-[#B45309]"><i class="fas fa-comments"></i><span data-i18n="hero.contact">تواصل معنا</span></a>
                     </div>
-                    <div class="flex flex-wrap gap-6 md:gap-10 mt-12 pt-8 border-t border-white/20">
-                        <div><p class="text-2xl font-black text-white">15+</p><p class="text-sm text-white/70" data-i18n="hero.productsCount">منتج متنوع</p></div>
-                        <div><p class="text-2xl font-black text-white">100%</p><p class="text-sm text-white/70" data-i18n="hero.natural">طبيعي</p></div>
-                        <div><p class="text-2xl font-black text-white">🇸🇩</p><p class="text-sm text-white/70" data-i18n="hero.authentic">أصالة سودانية</p></div>
+                    <div class="flex flex-wrap gap-6 md:gap-10 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/20">
+                        <div><p class="text-xl md:text-2xl font-black text-white">15+</p><p class="text-xs md:text-sm text-white/70" data-i18n="hero.productsCount">منتج متنوع</p></div>
+                        <div><p class="text-xl md:text-2xl font-black text-white">100%</p><p class="text-xs md:text-sm text-white/70" data-i18n="hero.natural">طبيعي</p></div>
+                        <div><p class="text-xl md:text-2xl font-black text-white">🇸🇩</p><p class="text-xs md:text-sm text-white/70" data-i18n="hero.authentic">أصالة سودانية</p></div>
                     </div>
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 right-0 z-10">
-                <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="absolute bottom-0 left-0 right-0 z-10 pointer-events-none">
+                <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:40px;">
                     <path d="M0 40L60 35C120 30 240 20 360 25C480 30 600 50 720 55C840 60 960 50 1080 40C1200 30 1320 20 1380 15L1440 10V80H0V40Z" fill="#fcf9f5"/>
                 </svg>
             </div>
         </section>
 
         <!-- PRODUCTS SECTION -->
-        <section id="products" class="py-16 md:py-24 bg-[#fcf9f5]">
-            <div class="container mx-auto px-4 md:px-8">
-                <div class="text-center mb-12 section-fade">
-                    <span class="category-tag text-sm mb-3" data-i18n="products.tag">تسوق الآن</span>
-                    <h2 class="section-title text-3xl md:text-4xl font-black text-gray-800"><span data-i18n="products.title">منتجاتنا</span> <span class="text-[#B45309]" data-i18n="products.sudanese">السودانية</span></h2>
-                    <p class="text-gray-500 max-w-2xl mx-auto mt-3 text-lg" data-i18n="products.subtitle">اكتشف تشكيلتنا المميزة من المنتجات الطبيعية والمخبوزات التقليدية</p>
+        <section id="products" class="section-py bg-[#fcf9f5]">
+            <div class="container">
+                <div class="text-center mb-8 md:mb-12 section-fade">
+                    <span class="category-tag text-xs md:text-sm mb-3" data-i18n="products.tag">تسوق الآن</span>
+                    <h2 class="section-title font-black text-gray-800 mt-2"><span data-i18n="products.title">منتجاتنا</span> <span class="text-[#B45309]" data-i18n="products.sudanese">السودانية</span></h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto mt-2 md:mt-3 text-sm md:text-base lg:text-lg" data-i18n="products.subtitle">اكتشف تشكيلتنا المميزة من المنتجات الطبيعية والمخبوزات التقليدية</p>
                 </div>
-                <div class="flex justify-center gap-3 mb-10 overflow-x-auto pb-2 section-fade">
-                    <button onclick="filterProducts('all')" class="category-filter active px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 bg-[#B45309] text-white shadow-md" data-i18n="products.filterAll">الكل</button>
-                    <button onclick="filterProducts('sudanese')" class="category-filter px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-[#B45309]/20" data-i18n="products.filterSudanese">المنتجات السودانية</button>
-                    <button onclick="filterProducts('bakery')" class="category-filter px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-[#B45309]/20" data-i18n="products.filterBakery">المخبوزات</button>
+                <div class="flex md:justify-center gap-2 md:gap-3 mb-6 md:mb-10 overflow-x-auto pb-2 section-fade category-scroll px-1">
+                    <button onclick="filterProducts('all')" class="category-filter active px-4 md:px-6 py-2 md:py-2.5 rounded-full font-bold text-xs md:text-sm transition-all duration-300 bg-[#B45309] text-white shadow-md whitespace-nowrap flex-shrink-0" data-i18n="products.filterAll">الكل</button>
+                    <button onclick="filterProducts('sudanese')" class="category-filter px-4 md:px-6 py-2 md:py-2.5 rounded-full font-bold text-xs md:text-sm transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-[#B45309]/20 whitespace-nowrap flex-shrink-0" data-i18n="products.filterSudanese">المنتجات السودانية</button>
+                    <button onclick="filterProducts('bakery')" class="category-filter px-4 md:px-6 py-2 md:py-2.5 rounded-full font-bold text-xs md:text-sm transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-[#B45309]/20 whitespace-nowrap flex-shrink-0" data-i18n="products.filterBakery">المخبوزات</button>
                 </div>
-                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"></div>
+                <div id="productsGrid" class="products-grid"></div>
             </div>
         </section>
 
         <!-- ABOUT SECTION -->
-        <section id="about" class="py-16 md:py-24 bg-[#fef3e8]">
-            <div class="container mx-auto px-4 md:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <section id="about" class="section-py bg-[#fef3e8]">
+            <div class="container">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center">
                     <div class="section-fade order-2 lg:order-1">
-                        <span class="category-tag text-sm mb-3" data-i18n="about.tag">من نحن</span>
-                        <h2 class="text-3xl md:text-4xl font-black text-gray-800 mb-4"><span data-i18n="about.title1">نقدم لكم</span> <span class="text-[#B45309]" data-i18n="about.title2">أصالة</span> <span data-i18n="about.title3">المطبخ السوداني</span></h2>
-                        <p class="text-gray-600 text-lg leading-relaxed mb-4" data-i18n="about.p1">في <strong class="text-[#B45309]">مارفيلا اورجانيكس</strong>، نفتخر بتقديم المنتجات السودانية الأصيلة التي تعكس تراثنا الغني وتقاليدنا العريقة. نختار لكم أفضل المكونات الطبيعية لنضمن لكم جودة لا تضاهى.</p>
-                        <p class="text-gray-600 text-lg leading-relaxed mb-6" data-i18n="about.p2">نسعى لجلب نكهات السودان الأصيلة إلى منازلكم في مصر، مع التزامنا بالجودة والطزاجة وسهولة الطلب عبر واتساب.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"><i class="fas fa-check-circle text-[#166534]"></i><span data-i18n="about.badge1">منتجات طبيعية 100%</span></div>
-                            <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"><i class="fas fa-check-circle text-[#166534]"></i><span data-i18n="about.badge2">شحن سريع</span></div>
-                            <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"><i class="fas fa-check-circle text-[#166534]"></i><span data-i18n="about.badge3">دفع آمن</span></div>
+                        <span class="category-tag text-xs md:text-sm mb-3" data-i18n="about.tag">من نحن</span>
+                        <h2 class="section-heading font-black text-gray-800 mb-3 md:mb-4 mt-2"><span data-i18n="about.title1">نقدم لكم</span> <span class="text-[#B45309]" data-i18n="about.title2">أصالة</span> <span data-i18n="about.title3">المطبخ السوداني</span></h2>
+                        <p class="text-gray-600 text-sm md:text-base lg:text-lg leading-relaxed mb-3 md:mb-4" data-i18n="about.p1">في <strong class="text-[#B45309]">مارفيلا اورجانيكس</strong>، نفتخر بتقديم المنتجات السودانية الأصيلة التي تعكس تراثنا الغني وتقاليدنا العريقة. نختار لكم أفضل المكونات الطبيعية لنضمن لكم جودة لا تضاهى.</p>
+                        <p class="text-gray-600 text-sm md:text-base lg:text-lg leading-relaxed mb-5 md:mb-6" data-i18n="about.p2">نسعى لجلب نكهات السودان الأصيلة إلى منازلكم في مصر، مع التزامنا بالجودة والطزاجة وسهولة الطلب عبر واتساب.</p>
+                        <div class="flex flex-wrap gap-2 md:gap-3">
+                            <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200 text-xs md:text-sm"><i class="fas fa-check-circle text-[#166534]"></i><span data-i18n="about.badge1">منتجات طبيعية 100%</span></div>
+                            <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200 text-xs md:text-sm"><i class="fas fa-check-circle text-[#166534]"></i><span data-i18n="about.badge2">شحن سريع</span></div>
+                            <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200 text-xs md:text-sm"><i class="fas fa-check-circle text-[#166534]"></i><span data-i18n="about.badge3">دفع آمن</span></div>
                         </div>
                     </div>
                     <div class="section-fade order-1 lg:order-2">
                         <div class="relative">
-                            <div class="absolute -top-4 -right-4 w-24 h-24 bg-[#B45309]/10 rounded-full"></div>
-                            <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-[#166534]/10 rounded-full"></div>
-                            <img id="aboutImage" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=800&q=80" alt="المطبخ السوداني" class="relative z-10 rounded-3xl shadow-2xl w-full h-80 lg:h-96 object-cover" loading="lazy" />
-                            <div class="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg z-20 border border-gray-200">
-                                <p class="text-2xl font-black text-[#B45309]">15+</p>
-                                <p class="text-sm text-gray-600" data-i18n="hero.productsCount">منتج متنوع</p>
+                            <div class="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-16 h-16 md:w-24 md:h-24 bg-[#B45309]/10 rounded-full"></div>
+                            <div class="absolute -bottom-3 -left-3 md:-bottom-4 md:-left-4 w-20 h-20 md:w-32 md:h-32 bg-[#166534]/10 rounded-full"></div>
+                            <img id="aboutImage" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=800&q=80" alt="المطبخ السوداني" class="relative z-10 rounded-2xl md:rounded-3xl shadow-2xl w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover" loading="lazy" />
+                            <div class="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-white/95 backdrop-blur-sm rounded-xl md:rounded-2xl px-4 py-3 md:px-6 md:py-4 shadow-lg z-20 border border-gray-200">
+                                <p class="text-xl md:text-2xl font-black text-[#B45309]">15+</p>
+                                <p class="text-xs md:text-sm text-gray-600" data-i18n="hero.productsCount">منتج متنوع</p>
                             </div>
                         </div>
                     </div>
@@ -732,92 +944,89 @@
         </section>
 
         <!-- ORDER SECTION -->
-        <section id="order" class="py-16 md:py-24 bg-[#fcf9f5]">
-            <div class="container mx-auto px-4 md:px-8">
-                <div class="text-center mb-12 section-fade">
-                    <span class="category-tag text-sm mb-3" data-i18n="order.tag">طريقة الطلب</span>
-                    <h2 class="text-3xl md:text-4xl font-black text-gray-800"><span data-i18n="order.title1">كيف تطلب</span> <span class="text-[#B45309]" data-i18n="order.title2">منتجاتك</span><span data-i18n="order.title3">؟</span></h2>
-                    <p class="text-gray-500 max-w-2xl mx-auto mt-3 text-lg" data-i18n="order.subtitle">ثلاث خطوات بسيطة للحصول على منتجاتنا الأصيلة</p>
+        <section id="order" class="section-py bg-[#fcf9f5]">
+            <div class="container">
+                <div class="text-center mb-8 md:mb-12 section-fade">
+                    <span class="category-tag text-xs md:text-sm mb-3" data-i18n="order.tag">طريقة الطلب</span>
+                    <h2 class="section-heading font-black text-gray-800 mt-2"><span data-i18n="order.title1">كيف تطلب</span> <span class="text-[#B45309]" data-i18n="order.title2">منتجاتك</span><span data-i18n="order.title3">؟</span></h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto mt-2 md:mt-3 text-sm md:text-base lg:text-lg" data-i18n="order.subtitle">ثلاث خطوات بسيطة للحصول على منتجاتنا الأصيلة</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="text-center section-fade p-8 rounded-3xl bg-white shadow-lg border border-[#B45309]/10 hover:shadow-xl transition">
-                        <div class="w-20 h-20 bg-[#B45309]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-[#B45309]">١</div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2" data-i18n="order.step1.title">اختر منتجاتك</h3>
-                        <p class="text-gray-500" data-i18n="order.step1.desc">تصفح منتجاتنا المتنوعة واختر ما يناسبك</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
+                    <div class="text-center section-fade p-5 md:p-6 lg:p-8 rounded-2xl md:rounded-3xl bg-white shadow-lg border border-[#B45309]/10 hover:shadow-xl transition">
+                        <div class="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-[#B45309]/10 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 text-2xl md:text-3xl text-[#B45309]">١</div>
+                        <h3 class="text-base md:text-lg lg:text-xl font-bold text-gray-800 mb-2" data-i18n="order.step1.title">اختر منتجاتك</h3>
+                        <p class="text-gray-500 text-sm md:text-base" data-i18n="order.step1.desc">تصفح منتجاتنا المتنوعة واختر ما يناسبك</p>
                     </div>
-                    <div class="text-center section-fade p-8 rounded-3xl bg-white shadow-lg border border-[#B45309]/10 hover:shadow-xl transition" style="animation-delay:0.1s">
-                        <div class="w-20 h-20 bg-[#166534]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-[#166534]">٢</div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2" data-i18n="order.step2.title">أضف إلى السلة</h3>
-                        <p class="text-gray-500" data-i18n="order.step2.desc">حدد الكمية وأضف المنتجات إلى سلة التسوق</p>
+                    <div class="text-center section-fade p-5 md:p-6 lg:p-8 rounded-2xl md:rounded-3xl bg-white shadow-lg border border-[#B45309]/10 hover:shadow-xl transition" style="animation-delay:0.1s">
+                        <div class="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-[#166534]/10 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 text-2xl md:text-3xl text-[#166534]">٢</div>
+                        <h3 class="text-base md:text-lg lg:text-xl font-bold text-gray-800 mb-2" data-i18n="order.step2.title">أضف إلى السلة</h3>
+                        <p class="text-gray-500 text-sm md:text-base" data-i18n="order.step2.desc">حدد الكمية وأضف المنتجات إلى سلة التسوق</p>
                     </div>
-                    <div class="text-center section-fade p-8 rounded-3xl bg-white shadow-lg border border-[#B45309]/10 hover:shadow-xl transition" style="animation-delay:0.2s">
-                        <div class="w-20 h-20 bg-[#25D366]/10 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-[#25D366]">٣</div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2" data-i18n="order.step3.title">أرسل الطلب عبر واتساب</h3>
-                        <p class="text-gray-500" data-i18n="order.step3.desc">املأ بياناتك وأرسل الفاتورة عبر واتساب</p>
+                    <div class="text-center section-fade p-5 md:p-6 lg:p-8 rounded-2xl md:rounded-3xl bg-white shadow-lg border border-[#B45309]/10 hover:shadow-xl transition" style="animation-delay:0.2s">
+                        <div class="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-[#25D366]/10 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 text-2xl md:text-3xl text-[#25D366]">٣</div>
+                        <h3 class="text-base md:text-lg lg:text-xl font-bold text-gray-800 mb-2" data-i18n="order.step3.title">أرسل الطلب عبر واتساب</h3>
+                        <p class="text-gray-500 text-sm md:text-base" data-i18n="order.step3.desc">املأ بياناتك وأرسل الفاتورة عبر واتساب</p>
                     </div>
                 </div>
-                <div class="mt-10 text-center section-fade p-6 bg-[#fef3e8] rounded-2xl max-w-2xl mx-auto border border-[#B45309]/20">
-                    <p class="text-gray-700 font-semibold" data-i18n="order.note"><i class="fas fa-info-circle text-[#B45309] ml-2"></i>سعر التوصيل يتم بالاتفاق بين الطرفين.</p>
+                <div class="mt-8 md:mt-10 text-center section-fade p-4 md:p-6 bg-[#fef3e8] rounded-2xl max-w-2xl mx-auto border border-[#B45309]/20">
+                    <p class="text-gray-700 font-semibold text-sm md:text-base" data-i18n="order.note"><i class="fas fa-info-circle text-[#B45309] ml-2"></i>سعر التوصيل يتم بالاتفاق بين الطرفين.</p>
                 </div>
             </div>
         </section>
 
-        <!-- CONTACT SECTION - BUTTONS ONLY -->
-        <section id="contact" class="py-16 md:py-24 bg-[#fef3e8]">
-            <div class="container mx-auto px-4 md:px-8">
-                <div class="text-center mb-12 section-fade">
-                    <span class="category-tag text-sm mb-3" data-i18n="contact.tag">تواصل معنا</span>
-                    <h2 class="text-3xl md:text-4xl font-black text-gray-800"><span class="text-[#B45309]" data-i18n="contact.title1">مارفيلا</span> <span data-i18n="contact.title2">هنا لخدمتك</span></h2>
-                    <p class="text-gray-500 max-w-2xl mx-auto mt-3 text-lg" data-i18n="contact.subtitle">تواصل معنا عبر القنوات التالية</p>
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section-py bg-[#fef3e8]">
+            <div class="container">
+                <div class="text-center mb-8 md:mb-12 section-fade">
+                    <span class="category-tag text-xs md:text-sm mb-3" data-i18n="contact.tag">تواصل معنا</span>
+                    <h2 class="section-heading font-black text-gray-800 mt-2"><span class="text-[#B45309]" data-i18n="contact.title1">مارفيلا اورجانيكس</span> <span data-i18n="contact.title2">هنا لخدمتك</span></h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto mt-2 md:mt-3 text-sm md:text-base lg:text-lg" data-i18n="contact.subtitle">تواصل معنا عبر القنوات التالية</p>
                 </div>
 
                 <!-- شبكة الأزرار -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
-                    <!-- واتساب -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6 max-w-4xl mx-auto">
                     <a href="https://wa.me/201119288876" target="_blank" rel="noopener" class="contact-btn btn-whatsapp">
                         <i class="fab fa-whatsapp"></i>
                         <span>واتساب</span>
                     </a>
-                    <!-- فيسبوك -->
                     <a href="https://www.facebook.com/share/1DRZcuFT1v/?mibextid=wwXIfr" target="_blank" rel="noopener" class="contact-btn btn-facebook">
                         <i class="fab fa-facebook"></i>
                         <span>فيسبوك</span>
                     </a>
-                    <!-- انستغرام -->
                     <a href="https://www.instagram.com/marvella.kitchen?igsh=aWUzNmRycXYwbXdl" target="_blank" rel="noopener" class="contact-btn btn-instagram">
                         <i class="fab fa-instagram"></i>
                         <span>انستغرام</span>
                     </a>
-                    <!-- هاتف -->
                     <a href="tel:+201119288876" class="contact-btn btn-phone">
                         <i class="fas fa-phone"></i>
                         <span>اتصال</span>
                     </a>
-                    <!-- إيميل -->
                     <a href="mailto:info@marvella.com" class="contact-btn btn-email">
                         <i class="fas fa-envelope"></i>
                         <span>البريد الإلكتروني</span>
                     </a>
-                    <!-- الموقع (جوجل ماب) -->
                     <a href="https://www.google.com/maps?q=30.0444,31.2357" target="_blank" rel="noopener" class="contact-btn btn-location">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>الموقع</span>
                     </a>
                 </div>
 
-                <!-- ملاحظة إضافية (اختياري) -->
-                <div class="mt-10 text-center section-fade p-6 bg-white rounded-2xl max-w-2xl mx-auto border border-[#B45309]/10 shadow-sm">
-                    <p class="text-gray-600" data-i18n="contact.form.footer">سيتم توجيهك إلى التطبيق المناسب عند النقر على أي زر.</p>
+                <div class="mt-8 md:mt-10 text-center section-fade p-4 md:p-6 bg-white rounded-2xl max-w-2xl mx-auto border border-[#B45309]/10 shadow-sm">
+                    <p class="text-gray-600 text-sm md:text-base" data-i18n="contact.form.footer">سيتم توجيهك إلى التطبيق المناسب عند النقر على أي زر.</p>
                 </div>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-200">
-            <div class="container mx-auto px-4 md:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                    <div><h3 class="text-2xl font-black text-[#FDE68A] mb-3" id="footerBrand">مارفيلا اورجانيكس </h3><p class="text-gray-300 text-sm leading-relaxed" data-i18n="footer.desc">المنتجات السودانية الأصيلة في مصر. نقدم لكم أجود المنتجات الطبيعية والمخبوزات التقليدية.</p></div>
-                    <div><h4 class="text-lg font-bold mb-3 text-white" data-i18n="footer.quickLinks">روابط سريعة</h4>
+        <footer class="bg-gray-900 text-white pt-10 md:pt-16 pb-6 md:pb-8 border-t border-gray-200">
+            <div class="container">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-8 mb-8 md:mb-12">
+                    <div class="sm:col-span-2 md:col-span-1">
+                        <h3 class="text-xl md:text-2xl font-black text-[#FDE68A] mb-3" id="footerBrand">مارفيلا اورجانيكس</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed" data-i18n="footer.desc">المنتجات السودانية الأصيلة في مصر. نقدم لكم أجود المنتجات الطبيعية والمخبوزات التقليدية.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-base md:text-lg font-bold mb-3 text-white" data-i18n="footer.quickLinks">روابط سريعة</h4>
                         <ul class="space-y-2 text-sm text-gray-300">
                             <li><a href="#home" class="hover:text-[#FDE68A] transition" data-i18n="nav.home">الرئيسية</a></li>
                             <li><a href="#products" class="hover:text-[#FDE68A] transition" data-i18n="nav.products">المنتجات</a></li>
@@ -826,23 +1035,22 @@
                             <li><a href="#contact" class="hover:text-[#FDE68A] transition" data-i18n="nav.contact">تواصل معنا</a></li>
                         </ul>
                     </div>
-                    <div><h4 class="text-lg font-bold mb-3 text-white" data-i18n="footer.contactTitle">تواصل معنا</h4>
+                    <div>
+                        <h4 class="text-base md:text-lg font-bold mb-3 text-white" data-i18n="footer.contactTitle">تواصل معنا</h4>
                         <ul class="space-y-2 text-sm text-gray-300">
-                            <li><i class="fas fa-phone ml-2 text-[#B45309]"></i> <span id="footerPhone">+201119288876</span></li>
-                            <li><i class="fab fa-whatsapp ml-2 text-[#25D366]"></i> <span id="footerWhatsapp">+201119288876</span></li>
-                            <li><i class="fas fa-envelope ml-2 text-[#B45309]"></i> info@marvella.com</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-phone text-[#B45309]"></i> <span id="footerPhone" class="truncate">+201119288876</span></li>
+                            <li class="flex items-center gap-2"><i class="fab fa-whatsapp text-[#25D366]"></i> <span id="footerWhatsapp" class="truncate">+201119288876</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-envelope text-[#B45309]"></i> <span class="truncate">info@marvella.com</span></li>
                         </ul>
-                        <!-- ====== تم إضافة الروابط هنا ====== -->
-                        <div class="flex gap-4 mt-4">
-                            <a href="https://www.facebook.com/share/1DRZcuFT1v/?mibextid=wwXIfr" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#1877F2] transition text-xl"><i class="fab fa-facebook"></i></a>
-                            <a href="https://www.instagram.com/marvella.kitchen?igsh=aWUzNmRycXYwbXdl" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#E1306C] transition text-xl"><i class="fab fa-instagram"></i></a>
-                            <a href="https://wa.me/201119288876" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#25D366] transition text-xl"><i class="fab fa-whatsapp"></i></a>
+                        <div class="flex gap-3 md:gap-4 mt-4">
+                            <a href="https://www.facebook.com/share/1DRZcuFT1v/?mibextid=wwXIfr" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#1877F2] transition text-lg md:text-xl"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/marvella.kitchen?igsh=aWUzNmRycXYwbXdl" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#E1306C] transition text-lg md:text-xl"><i class="fab fa-instagram"></i></a>
+                            <a href="https://wa.me/201119288876" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#25D366] transition text-lg md:text-xl"><i class="fab fa-whatsapp"></i></a>
                         </div>
-                        <!-- ====== نهاية الروابط ====== -->
                     </div>
                 </div>
-                <div class="border-t border-gray-800 pt-6 text-center text-sm text-gray-400">
-                    <p data-i18n="footer.copyright">حقوق النشر &copy; 2026 <span class="text-[#FDE68A]">مارفيلا اورجانيكس </span>. جميع الحقوق محفوظة.</p>
+                <div class="border-t border-gray-800 pt-5 md:pt-6 text-center text-xs md:text-sm text-gray-400">
+                    <p data-i18n="footer.copyright">حقوق النشر &copy; 2026 <span class="text-[#FDE68A]">مارفيلا اورجانيكس</span>. جميع الحقوق محفوظة.</p>
                     <p class="mt-1" data-i18n="footer.tagline">المنتجات السودانية الأصيلة</p>
                 </div>
             </div>
@@ -872,25 +1080,20 @@
             11: "k3k sudani.jpg",
             12: "mnin sudani.jpg",
             13: "bskwit nsh.jpg",
-            
             15: "bskwit yan.jpg"
         };
         // =============================================================
-        // ==========  نهاية قِسْم تَعديل الصور  ==========
-        // =============================================================
 
         // =============================================================
-        // ==========  إعدادات التطبيق (عدّل رقم الواتساب هنا)  ==========
+        // ==========  إعدادات التطبيق  ==========
         // =============================================================
         const CONFIG = {
-            whatsappNumber: "201119288876",   // ⬅️ غيّر هذا الرقم إلى رقم واتساب الخاص بك
+            whatsappNumber: "201119288876",
             currency: "جنيه",
             currencySymbol: "ج.م",
             storeName: "مارفيلا اورجانيكس",
             deliveryNote: "سعر التوصيل يتم بالاتفاق بين الطرفين."
         };
-        // =============================================================
-        // ==========  نهاية الإعدادات  ==========
         // =============================================================
 
         // =============================================================
@@ -918,6 +1121,7 @@
                 'products.filterAll': 'الكل',
                 'products.filterSudanese': 'المنتجات السودانية',
                 'products.filterBakery': 'المخبوزات',
+                'products.empty': 'لا توجد منتجات في هذه الفئة',
                 'about.tag': 'من نحن',
                 'about.title1': 'نقدم لكم',
                 'about.title2': 'أصالة',
@@ -940,7 +1144,7 @@
                 'order.step3.desc': 'املأ بياناتك وأرسل الفاتورة عبر واتساب',
                 'order.note': 'سعر التوصيل يتم بالاتفاق بين الطرفين.',
                 'contact.tag': 'تواصل معنا',
-                'contact.title1': ' مارفيلا اورجانيكس',
+                'contact.title1': 'مارفيلا اورجانيكس',
                 'contact.title2': 'هنا لخدمتك',
                 'contact.subtitle': 'تواصل معنا عبر القنوات التالية',
                 'contact.form.footer': 'سيتم توجيهك إلى التطبيق المناسب عند النقر على أي زر.',
@@ -953,7 +1157,7 @@
                 'footer.desc': 'المنتجات السودانية الأصيلة في مصر. نقدم لكم أجود المنتجات الطبيعية والمخبوزات التقليدية.',
                 'footer.quickLinks': 'روابط سريعة',
                 'footer.contactTitle': 'تواصل معنا',
-                'footer.copyright': 'حقوق النشر &copy; 2026 <span class="text-[#FDE68A]">مارفيلا</span>. جميع الحقوق محفوظة.',
+                'footer.copyright': 'حقوق النشر &copy; 2026 <span class="text-[#FDE68A]">مارفيلا اورجانيكس</span>. جميع الحقوق محفوظة.',
                 'footer.tagline': 'المنتجات السودانية الأصيلة',
                 'toast.added': 'تم إضافة {product} إلى السلة',
                 'toast.cleared': 'تم إفراغ السلة',
@@ -964,7 +1168,7 @@
                 'product.add': 'أضف',
                 'product.category.sudanese': 'سوداني',
                 'product.category.bakery': 'مخبوزات',
-                'brand': 'مارفيلا',
+                'brand': 'مارفيلا اورجانيكس',
                 'checkout.title': 'إكمال الطلب',
                 'checkout.customerInfo': 'بيانات العميل',
                 'checkout.name': 'الاسم',
@@ -998,11 +1202,12 @@
                 'products.filterAll': 'All',
                 'products.filterSudanese': 'Sudanese Products',
                 'products.filterBakery': 'Bakery',
+                'products.empty': 'No products in this category',
                 'about.tag': 'About Us',
                 'about.title1': 'We Bring You the',
                 'about.title2': 'Authenticity',
                 'about.title3': 'of Sudanese Cuisine',
-                'about.p1': 'At <strong>Marvella</strong>, we pride ourselves on offering authentic Sudanese products that reflect our rich heritage and traditions. We select the finest natural ingredients to ensure unmatched quality.',
+                'about.p1': 'At <strong>Marvella Organics</strong>, we pride ourselves on offering authentic Sudanese products that reflect our rich heritage and traditions. We select the finest natural ingredients to ensure unmatched quality.',
                 'about.p2': 'We strive to bring the authentic flavors of Sudan to your homes in Egypt, with a commitment to quality, freshness, and easy ordering via WhatsApp.',
                 'about.badge1': '100% Natural Products',
                 'about.badge2': 'Fast Shipping',
@@ -1020,7 +1225,7 @@
                 'order.step3.desc': 'Fill in your details and send the invoice via WhatsApp',
                 'order.note': 'Delivery fee is agreed upon between both parties.',
                 'contact.tag': 'Contact Us',
-                'contact.title1': 'Marvella',
+                'contact.title1': 'Marvella Organics',
                 'contact.title2': 'Here to Serve You',
                 'contact.subtitle': 'Contact us through the following channels',
                 'contact.form.footer': 'You will be redirected to the appropriate app when clicking any button.',
@@ -1033,7 +1238,7 @@
                 'footer.desc': 'Authentic Sudanese products in Egypt. We offer you the finest natural products and traditional baked goods.',
                 'footer.quickLinks': 'Quick Links',
                 'footer.contactTitle': 'Contact Us',
-                'footer.copyright': 'Copyright &copy; 2026 <span class="text-[#FDE68A]">Marvella</span>. All rights reserved.',
+                'footer.copyright': 'Copyright &copy; 2026 <span class="text-[#FDE68A]">Marvella Organics</span>. All rights reserved.',
                 'footer.tagline': 'Authentic Sudanese Products',
                 'toast.added': '{product} added to cart',
                 'toast.cleared': 'Cart cleared',
@@ -1044,7 +1249,7 @@
                 'product.add': 'Add',
                 'product.category.sudanese': 'Sudanese',
                 'product.category.bakery': 'Bakery',
-                'brand': 'MARVILLA',
+                'brand': 'MARVILLA ORGANICS',
                 'checkout.title': 'Checkout',
                 'checkout.customerInfo': 'Customer Details',
                 'checkout.name': 'Name',
@@ -1108,12 +1313,6 @@
         // =============================================================
         // البيانات والمنتجات
         // =============================================================
-        const DEFAULT_IMAGES = {
-            hero: CUSTOM_HERO_IMAGE,
-            about: CUSTOM_ABOUT_IMAGE,
-            products: CUSTOM_PRODUCT_IMAGES
-        };
-
         const BASE_PRODUCTS = [
             { id: 1, nameAr: "ويكة القضارف", nameEn: "Wikah Al Qadarif", descAr: "ويكة سودانية أصيلة من القضارف، غنية بالنكهة والفوائد", descEn: "Authentic Sudanese Wikah from Al Qadarif, rich in flavor and benefits", price: 500, category: "sudanese", image: CUSTOM_PRODUCT_IMAGES[1] },
             { id: 2, nameAr: "عدسية بلدنا", nameEn: "Our Lentil Dish", descAr: "عدسية تقليدية بنكهة سودانية أصيلة", descEn: "Traditional lentil dish with authentic Sudanese flavor", price: 130, category: "sudanese", image: CUSTOM_PRODUCT_IMAGES[2] },
@@ -1128,7 +1327,6 @@
             { id: 11, nameAr: "كعك سوداني", nameEn: "Sudanese Cookies", descAr: "كعك سوداني أصيل بنكهة العرق سوس", descEn: "Authentic Sudanese cookies with licorice flavor", price: 500, category: "bakery", image: CUSTOM_PRODUCT_IMAGES[11] },
             { id: 12, nameAr: "منين سوداني", nameEn: "Sudanese Mineen", descAr: "منين سوداني تقليدي طري ولذيذ", descEn: "Traditional Sudanese Mineen, soft and delicious", price: 350, category: "bakery", image: CUSTOM_PRODUCT_IMAGES[12] },
             { id: 13, nameAr: "بسكويت نشادر", nameEn: "Ammonia Cookies", descAr: "بسكويت بنكهة النشادر التقليدية", descEn: "Cookies with traditional ammonia flavor", price: 350, category: "bakery", image: CUSTOM_PRODUCT_IMAGES[13] },
-           
             { id: 15, nameAr: "بسكويت يانسون", nameEn: "Anise Cookies", descAr: "بسكويت يانسون عطري مثالي مع الشاي", descEn: "Aromatic anise cookies perfect with tea", price: 400, category: "bakery", image: CUSTOM_PRODUCT_IMAGES[15] }
         ];
 
@@ -1139,7 +1337,7 @@
         let currentFilter = 'all';
 
         // =============================================================
-        // حفظ واسترجاع الحالة (الصور، السلة، اللغة)
+        // حفظ واسترجاع الحالة
         // =============================================================
         function saveCart() {
             localStorage.setItem('marvella_cart', JSON.stringify(cart));
@@ -1158,7 +1356,6 @@
         }
 
         function loadState() {
-            // تحميل الصور
             try {
                 const saved = localStorage.getItem('marvella_images');
                 if (saved) {
@@ -1180,11 +1377,9 @@
                 PRODUCTS = BASE_PRODUCTS.map(p => ({ ...p }));
             }
 
-            // تحميل السلة
             loadCart();
 
-            // تحميل اللغة
-            const lang = localStorage.getItem('marvella organics_lang');
+            const lang = localStorage.getItem('marvella_lang');
             if (lang === 'en' || lang === 'ar') currentLanguage = lang;
         }
 
@@ -1250,8 +1445,7 @@
 
                 const name = currentLanguage === 'ar' ? product.nameAr : product.nameEn;
                 const desc = currentLanguage === 'ar' ? product.descAr : product.descEn;
-                const categoryLabel = product.category === 'sudanese' ? t('product.category.sudanese') : t(
-                    'product.category.bakery');
+                const categoryLabel = product.category === 'sudanese' ? t('product.category.sudanese') : t('product.category.bakery');
 
                 const div = document.createElement('div');
                 div.className = 'product-grid-item product-card';
@@ -1264,20 +1458,20 @@
                             />
                             <span class="absolute top-3 right-3 category-tag text-xs">${categoryLabel}</span>
                         </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-bold text-gray-800 mb-1">${name}</h3>
-                            <p class="text-sm text-gray-500 mb-2 line-clamp-2">${desc}</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-xl font-black text-[#B45309]">${formatPrice(product.price)}</span>
-                                <div class="flex items-center gap-2">
+                        <div class="p-3 md:p-4 flex-1 flex flex-col">
+                            <h3 class="text-sm md:text-base lg:text-lg font-bold text-gray-800 mb-1 line-clamp-2">${name}</h3>
+                            <p class="text-xs md:text-sm text-gray-500 mb-3 line-clamp-2 flex-1">${desc}</p>
+                            <div class="flex items-center justify-between gap-2 flex-wrap">
+                                <span class="text-base md:text-lg lg:text-xl font-black text-[#B45309]">${formatPrice(product.price)}</span>
+                                <div class="flex items-center gap-1.5">
                                     ${qty > 0 ? `
-                                        <button onclick="updateQty(${product.id}, -1)" class="qty-btn">−</button>
-                                        <span class="font-bold w-6 text-center text-gray-800">${qty}</span>
-                                        <button onclick="updateQty(${product.id}, 1)" class="qty-btn">+</button>
+                                        <button onclick="updateQty(${product.id}, -1)" class="qty-btn" aria-label="تقليل">−</button>
+                                        <span class="font-bold w-6 text-center text-gray-800 text-sm md:text-base">${qty}</span>
+                                        <button onclick="updateQty(${product.id}, 1)" class="qty-btn" aria-label="زيادة">+</button>
                                     ` : `
                                         <button onclick="addToCart(${product.id})" 
-                                                class="bg-[#B45309] text-white px-4 py-2 rounded-xl font-bold text-sm hover:bg-[#92400e] transition shadow-md hover:shadow-lg flex items-center gap-1">
-                                            <i class="fas fa-plus"></i>
+                                                class="bg-[#B45309] text-white px-3 md:px-4 py-2 rounded-xl font-bold text-xs md:text-sm hover:bg-[#92400e] transition shadow-md hover:shadow-lg flex items-center gap-1 whitespace-nowrap">
+                                            <i class="fas fa-plus text-xs"></i>
                                             ${t('product.add')}
                                         </button>
                                     `}
@@ -1376,20 +1570,20 @@
                 cart.forEach(item => {
                     const name = currentLanguage === 'ar' ? item.nameAr : item.nameEn;
                     const div = document.createElement('div');
-                    div.className = 'cart-item flex items-center gap-4';
+                    div.className = 'cart-item flex items-center gap-2 md:gap-3';
                     div.innerHTML = `
-                            <img src="${item.image}" alt="${name}" class="w-16 h-16 rounded-xl object-cover flex-shrink-0 bg-gray-100" 
+                            <img src="${item.image}" alt="${name}" class="w-12 h-12 md:w-14 md:h-14 rounded-xl object-cover flex-shrink-0 bg-gray-100" 
                                  onerror="this.src='https://via.placeholder.com/100/f9f5f0/B45309?text=${encodeURIComponent(name)}'" />
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-bold text-gray-800 text-sm truncate">${name}</h4>
-                                <span class="text-sm text-[#B45309] font-bold">${formatPrice(item.price)}</span>
+                                <h4 class="font-bold text-gray-800 text-xs md:text-sm truncate">${name}</h4>
+                                <span class="text-xs md:text-sm text-[#B45309] font-bold">${formatPrice(item.price)}</span>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <button onclick="updateQty(${item.id}, -1)" class="qty-btn w-8 h-8 text-sm">−</button>
-                                <span class="font-bold w-6 text-center text-gray-800">${item.qty}</span>
-                                <button onclick="updateQty(${item.id}, 1)" class="qty-btn w-8 h-8 text-sm">+</button>
+                            <div class="flex items-center gap-1 md:gap-1.5 flex-shrink-0">
+                                <button onclick="updateQty(${item.id}, -1)" class="qty-btn w-7 h-7 md:w-8 md:h-8 text-xs md:text-sm">−</button>
+                                <span class="font-bold w-5 md:w-6 text-center text-gray-800 text-sm">${item.qty}</span>
+                                <button onclick="updateQty(${item.id}, 1)" class="qty-btn w-7 h-7 md:w-8 md:h-8 text-xs md:text-sm">+</button>
                             </div>
-                            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-600 transition text-sm">
+                            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-600 transition text-xs md:text-sm p-1 flex-shrink-0" aria-label="حذف">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         `;
@@ -1412,7 +1606,10 @@
                 activeBtn.classList.add('active', 'bg-[#B45309]', 'text-white', 'shadow-md');
             }
             renderProducts(filter);
-            document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const target = document.getElementById('products');
+            const offset = window.innerWidth < 768 ? 60 : 80;
+            const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
         }
 
         // =============================================================
@@ -1443,7 +1640,6 @@
             document.body.style.overflow = '';
         }
 
-        // Checkout
         function openCheckout() {
             if (cart.length === 0) {
                 showToast(t('toast.emptyCart'));
@@ -1468,8 +1664,8 @@
                 const div = document.createElement('div');
                 div.className = 'checkout-item';
                 div.innerHTML = `
-                        <span>${name} × ${item.qty}</span>
-                        <span class="font-bold text-[#B45309]">${formatPrice(item.price * item.qty)}</span>
+                        <span class="truncate">${name} × ${item.qty}</span>
+                        <span class="font-bold text-[#B45309] whitespace-nowrap">${formatPrice(item.price * item.qty)}</span>
                     `;
                 container.appendChild(div);
             });
@@ -1490,7 +1686,6 @@
                 return;
             }
 
-            // بناء الرسالة
             let message = `*${t('brand')} - طلب جديد*%0A`;
             message += `%0A*${t('checkout.name')}:* ${name}`;
             message += `%0A*${t('checkout.address')}:* ${address}`;
@@ -1507,14 +1702,11 @@
             });
 
             message += `%0A%0A*${t('cart.total')}:* ${formatPrice(total)}`;
-            // ====== إضافة تنبيه التوصيل إلى رسالة واتساب أيضاً ======
             message += `%0A%0A${t('checkout.deliveryNote')}`;
 
-            // فتح واتساب
             const url = getWhatsappLink() + '?text=' + message;
             window.open(url, '_blank');
 
-            // إفراغ السلة وإغلاق الـ checkout
             cart = [];
             saveCart();
             updateCartUI();
@@ -1526,7 +1718,6 @@
         // =============================================================
         // أحداث التمرير والتهيئة
         // =============================================================
-        let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const current = window.pageYOffset;
             if (current > 80) {
@@ -1536,11 +1727,9 @@
                 navbar.classList.remove('shadow-lg');
                 navbar.style.background = 'rgba(255, 253, 248, 0.75)';
             }
-            lastScroll = current;
-        });
+        }, { passive: true });
 
         document.getElementById('whatsappFloat').href = getWhatsappLink();
-
         document.getElementById('footerPhone').textContent = '+' + CONFIG.whatsappNumber;
         document.getElementById('footerWhatsapp').textContent = '+' + CONFIG.whatsappNumber;
 
@@ -1581,11 +1770,15 @@
             }
         });
 
-        console.log('🚀 Marvella Organics - المنتجات السودانية الأصيلة (نسخة بيضاء)');
+        // منع التمرير الأفقي عند فتح القوائم
+        window.addEventListener('orientationchange', () => {
+            document.body.style.overflow = '';
+        });
+
+        console.log('🚀 Marvella Organics - نسخة متجاوبة بالكامل');
         console.log('📦 عدد المنتجات:', PRODUCTS.length);
         console.log('📱 WhatsApp:', CONFIG.whatsappNumber);
-        console.log('💾 تم حفظ السلة والصور واللغة في localStorage');
-        console.log('✅ تم إضافة تنبيه "سعر التوصيل" في أعلى صفحة الدفع بخط واضح');
+        console.log('📐 Responsive breakpoints: 360, 480, 640, 768, 1024, 1280, 1536');
     </script>
 
 </body>
